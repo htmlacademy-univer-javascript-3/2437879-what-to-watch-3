@@ -1,7 +1,11 @@
-function PlayerPage(): JSX.Element {
+type PlayerPageProps = {
+  videoUrl: string;
+};
+
+function PlayerPage({videoUrl}: PlayerPageProps): JSX.Element {
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={videoUrl} className="player__video" poster="img/player-poster.jpg"></video>
 
       <button type="button" className="player__exit">Exit</button>
 

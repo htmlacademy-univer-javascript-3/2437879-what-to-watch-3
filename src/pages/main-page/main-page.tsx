@@ -1,17 +1,17 @@
-import FilmCard from './film-card';
+import {FilmCards} from './film-cards';
+import {Films, PromoFilmType} from '../../types/films';
 
-type PromoFilmProps = {
-  title: string;
-  genre: string;
-  year: number;
+type MainPageProps = {
+  promoFilm: PromoFilmType;
+  films: Films[];
 }
 
-function MainPage(props: PromoFilmProps): JSX.Element {
+function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
   return (
     <>
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="/img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={promoFilm.src} alt={promoFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -40,16 +40,16 @@ function MainPage(props: PromoFilmProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="/img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              <img src={promoFilm.poster} alt={`${promoFilm.title} poster`} width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{promoFilm.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.year}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.year}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -110,49 +110,7 @@ function MainPage(props: PromoFilmProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard imgSrc="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" imgDescription="Fantastic Beasts: The Crimes of Grindelwald"/>
-
-            <FilmCard imgSrc="img/bohemian-rhapsody.jpg" imgDescription="Bohemian Rhapsody"/>
-
-            <FilmCard imgSrc="img/macbeth.jpg" imgDescription="Macbeth"/>
-
-            <FilmCard imgSrc="img/aviator.jpg" imgDescription="Aviator"/>
-
-
-            <FilmCard imgSrc="img/we-need-to-talk-about-kevin.jpg" imgDescription="We need to talk about Kevin"/>
-
-            <FilmCard imgSrc="img/what-we-do-in-the-shadows.jpg" imgDescription="What We Do in the Shadows"/>
-
-            <FilmCard imgSrc="img/revenant.jpg" imgDescription="Revenant"/>
-
-            <FilmCard imgSrc="img/johnny-english.jpg" imgDescription="Johnny English"/>
-
-
-            <FilmCard imgSrc="img/shutter-island.jpg" imgDescription="Shutter Island"/>
-
-            <FilmCard imgSrc="img/pulp-fiction.jpg" imgDescription="Pulp Fiction"/>
-
-            <FilmCard imgSrc="img/no-country-for-old-men.jpg" imgDescription="No Country for Old Men"/>
-
-            <FilmCard imgSrc="img/snatch.jpg" imgDescription="Snatch"/>
-
-
-            <FilmCard imgSrc="img/moonrise-kingdom.jpg" imgDescription="Moonrise Kingdom"/>
-
-            <FilmCard imgSrc="img/seven-years-in-tibet.jpg" imgDescription="Seven Years in Tibet"/>
-
-            <FilmCard imgSrc="img/midnight-special.jpg" imgDescription="Midnight Special"/>
-
-            <FilmCard imgSrc="img/war-of-the-worlds.jpg" imgDescription="War of the Worlds"/>
-
-
-            <FilmCard imgSrc="img/dardjeeling-limited.jpg" imgDescription="Dardjeeling Limited"/>
-
-            <FilmCard imgSrc="img/orlando.jpg" imgDescription="Orlando"/>
-
-            <FilmCard imgSrc="img/mindhunter.jpg" imgDescription="Mindhunter"/>
-
-            <FilmCard imgSrc="img/midnight-special.jpg" imgDescription="Midnight Special"/>
+            <FilmCards filmId={promoFilm.id} films={films} />
           </div>
 
           <div className="catalog__more">

@@ -1,19 +1,33 @@
-type FilmCardProps = {
-  imgSrc: string;
-  imgDescription: string;
-}
+import {Films} from '../../types/films';
+import {AppRoute} from '../../const';
+import {Link} from 'react-router-dom';
 
-function FilmCard({imgSrc, imgDescription}: FilmCardProps): JSX.Element {
+type FilmCardProps = {
+  film: Films;
+  onFilmCard: (id: number) => void;
+};
+
+function FilmCard({film, onFilmCard}: FilmCardProps): JSX.Element {
+  const onMouseEnterHandler = () => {
+    onFilmCard(film.id);
+  };
+
+  const onMouseLeaveHandler = () => {
+    onFilmCard(0);
+  };
   return (
     <article className="small-film-card catalog__films-card">
-      <div className="small-film-card__image">
-        <img src={imgSrc}
-          alt={imgDescription} width="280" height="175"
+      <div className="small-film-card__image"
+        onMouseEnter={onMouseEnterHandler}
+        onMouseLeave={onMouseLeaveHandler}
+      >
+        <img src={film.src}
+          alt={film.title} width="280" height="175"
         />
       </div>
       <h3 className="small-film-card__title">
-        <a className="small-film-card__link" href="film-page.html">{imgDescription}
-        </a>
+        <Link to={AppRoute.Film} className="small-film-card__link">{film.title}
+        </Link>
       </h3>
     </article>
   );
