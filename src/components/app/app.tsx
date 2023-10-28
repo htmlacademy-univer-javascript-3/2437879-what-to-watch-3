@@ -31,7 +31,7 @@ function App(props: AppProps): JSX.Element {
         }
         />
         <Route path={AppRoute.Film}>
-          <Route index element={<MoviePage promoFilms={mainFilm} films={films}/>} />
+          <Route index element={<MoviePage promoFilm={mainFilm} films={films}/>} />
           <Route path={AppRoute.AddReview} element={<AddReviewPage promoFilms={mainFilm}/>} />
         </Route>
         <Route path={AppRoute.Player} element={<PlayerPage videoUrl={mainFilm.video}/>} />

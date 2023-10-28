@@ -1,3 +1,6 @@
+export const MoreLikeFilmsCount = 4;
+export const ShowFilmsCount = 8;
+
 export const PromoFilm = {
   id: 1,
   title: 'The Grand Budapest Hotel',
@@ -20,4 +23,18 @@ export enum AppRoute {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
+}
+
+export enum TabType {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews',
+}
+
+export enum Grade {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome',
 }
