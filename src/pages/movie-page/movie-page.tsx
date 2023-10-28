@@ -1,20 +1,20 @@
-import {Films} from '../../types/films';
+import {FilmCardType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 
 type FilmsScreenProps = {
-  film: Films;
-  films: Films[];
+  promoFilms: FilmCardType;
+  films: FilmCardType[];
 }
 
-function MoviePage({film, films}: FilmsScreenProps): JSX.Element {
+function MoviePage({promoFilms, films}: FilmsScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={film.src} alt={film.title}/>
+            <img src={promoFilms.src} alt={promoFilms.title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -42,10 +42,10 @@ function MoviePage({film, films}: FilmsScreenProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{film.title}</h2>
+              <h2 className="film-card__title">{promoFilms.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{film.genre}</span>
-                <span className="film-card__year">{film.releaseDate}</span>
+                <span className="film-card__genre">{promoFilms.genre}</span>
+                <span className="film-card__year">{promoFilms.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -71,7 +71,7 @@ function MoviePage({film, films}: FilmsScreenProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.poster} alt={`${film.title} poster`} width="218"
+              <img src={promoFilms.poster} alt={`${promoFilms.title} poster`} width="218"
                 height="327"
               />
             </div>
@@ -92,19 +92,19 @@ function MoviePage({film, films}: FilmsScreenProps): JSX.Element {
               </nav>
 
               <div className="film-rating">
-                <div className="film-rating__score">{film.ratingScore}</div>
+                <div className="film-rating__score">{promoFilms.ratingScore}</div>
                 <p className="film-rating__meta">
-                  <span className="film-rating__level">{film.ratingLevel}</span>
-                  <span className="film-rating__count">{film.ratingCount} ratings</span>
+                  <span className="film-rating__level">{promoFilms.ratingLevel}</span>
+                  <span className="film-rating__count">{promoFilms.ratingCount} ratings</span>
                 </p>
               </div>
 
               <div className="film-card__text">
-                {film.description}
+                {promoFilms.description}
 
-                <p className="film-card__director"><strong>Director: {film.director}</strong></p>
+                <p className="film-card__director"><strong>Director: {promoFilms.director}</strong></p>
 
-                <p className="film-card__starring"><strong>Starring: {film.starring}</strong>
+                <p className="film-card__starring"><strong>Starring: {promoFilms.starring}</strong>
                 </p>
               </div>
             </div>
@@ -116,7 +116,7 @@ function MoviePage({film, films}: FilmsScreenProps): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmCards filmId={film.id} films={films} />
+          <FilmCards films={films} />
         </section>
 
         <footer className="page-footer">

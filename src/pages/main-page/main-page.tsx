@@ -1,9 +1,9 @@
 import {FilmCards} from './film-cards';
-import {Films, PromoFilmType} from '../../types/films';
+import {FilmCardType, PromoFilmType} from '../../types/films';
 
 type MainPageProps = {
   promoFilm: PromoFilmType;
-  films: Films[];
+  films: FilmCardType[];
 }
 
 function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
@@ -110,7 +110,7 @@ function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCards filmId={promoFilm.id} films={films} />
+            <FilmCards films={films} />
           </div>
 
           <div className="catalog__more">

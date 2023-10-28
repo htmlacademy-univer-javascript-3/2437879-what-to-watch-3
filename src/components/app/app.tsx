@@ -8,15 +8,15 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {PromoFilmType, Films} from '../../types/films';
+import {PromoFilmType, FilmCardType} from '../../types/films';
 import {mainFilm, films} from '../../mocks/films';
 
-type AppScreenProps = {
+type AppProps = {
   promoFilm: PromoFilmType;
-  films: Films[];
+  films: FilmCardType[];
 }
 
-function App(props: AppScreenProps): JSX.Element {
+function App(props: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -26,13 +26,13 @@ function App(props: AppScreenProps): JSX.Element {
           <PrivateRoute
             authorizationStatus={AuthorizationStatus.NoAuth}
           >
-            <MyListPage film={mainFilm} films={films}/>
+            <MyListPage films={films}/>
           </PrivateRoute>
         }
         />
         <Route path={AppRoute.Film}>
-          <Route index element={<MoviePage film={mainFilm} films={films}/>} />
-          <Route path={AppRoute.AddReview} element={<AddReviewPage film={mainFilm}/>} />
+          <Route index element={<MoviePage promoFilms={mainFilm} films={films}/>} />
+          <Route path={AppRoute.AddReview} element={<AddReviewPage promoFilms={mainFilm}/>} />
         </Route>
         <Route path={AppRoute.Player} element={<PlayerPage videoUrl={mainFilm.video}/>} />
         <Route path="*" element={<NotFoundPage />} />
