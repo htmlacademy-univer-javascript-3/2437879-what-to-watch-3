@@ -7,7 +7,7 @@ export type PromoFilmType = {
   poster: string;
 };
 
-export type Films = {
+export type FilmCardType = {
   id: number;
   title: string;
   src: string;

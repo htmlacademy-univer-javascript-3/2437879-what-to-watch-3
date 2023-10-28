@@ -1,6 +1,6 @@
-import {Films} from '../types/films';
+import {FilmCardType} from '../types/films';
 
-export const films: Films[] = [
+export const films: FilmCardType[] = [
   {
     id: 1,
     title: 'Bohemian Rhapsody',
