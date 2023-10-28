@@ -1,6 +1,6 @@
 import {FilmCardType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
-import {AppRoute} from '../../const';
+import {AppRoute, ShowFilmsCount} from '../../const';
 import {Link} from 'react-router-dom';
 
 type MyListPageProps = {
@@ -35,7 +35,7 @@ function MyListPage({films}: MyListPageProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-        <FilmCards films={films} />
+        <FilmCards films={films} filmsCount={ShowFilmsCount}/>
       </section>
 
       <footer className="page-footer">

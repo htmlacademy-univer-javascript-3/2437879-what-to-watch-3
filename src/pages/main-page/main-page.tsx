@@ -1,5 +1,6 @@
 import {FilmCards} from './film-cards';
 import {FilmCardType, PromoFilmType} from '../../types/films';
+import {ShowFilmsCount} from '../../const';
 
 type MainPageProps = {
   promoFilm: PromoFilmType;
@@ -110,7 +111,7 @@ function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCards films={films} />
+            <FilmCards films={films} filmsCount={ShowFilmsCount}/>
           </div>
 
           <div className="catalog__more">

@@ -17,10 +17,18 @@ export type FilmCardType = {
   ratingCount: number;
   description: string;
   director: string;
-  starring: string;
+  starring: string[];
   genre: string;
-  runTime: string;
+  runTime: number;
   releaseDate: number;
   pictureBackground: string;
   video: string;
+};
+
+export type ReviewType = {
+  id: number;
+  author: string;
+  rating: number;
+  comment: string;
+  date: string;
 };

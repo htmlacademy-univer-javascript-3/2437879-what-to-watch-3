@@ -2,19 +2,21 @@ import {FilmCardType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
+import Tabs from '../../components/tabs/tabs';
+import {MoreLikeFilmsCount} from '../../const';
 
-type FilmsScreenProps = {
-  promoFilms: FilmCardType;
+type MoviePageProps = {
+  promoFilm: FilmCardType;
   films: FilmCardType[];
 }
 
-function MoviePage({promoFilms, films}: FilmsScreenProps): JSX.Element {
+function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={promoFilms.src} alt={promoFilms.title}/>
+            <img src={promoFilm.src} alt={promoFilm.title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -42,10 +44,10 @@ function MoviePage({promoFilms, films}: FilmsScreenProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilms.title}</h2>
+              <h2 className="film-card__title">{promoFilm.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilms.genre}</span>
-                <span className="film-card__year">{promoFilms.releaseDate}</span>
+                <span className="film-card__genre">{promoFilm.genre}</span>
+                <span className="film-card__year">{promoFilm.releaseDate}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -71,43 +73,11 @@ function MoviePage({promoFilms, films}: FilmsScreenProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={promoFilms.poster} alt={`${promoFilms.title} poster`} width="218"
+              <img src={promoFilm.poster} alt={`${promoFilm.title} poster`} width="218"
                 height="327"
               />
             </div>
-
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-
-              <div className="film-rating">
-                <div className="film-rating__score">{promoFilms.ratingScore}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">{promoFilms.ratingLevel}</span>
-                  <span className="film-rating__count">{promoFilms.ratingCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                {promoFilms.description}
-
-                <p className="film-card__director"><strong>Director: {promoFilms.director}</strong></p>
-
-                <p className="film-card__starring"><strong>Starring: {promoFilms.starring}</strong>
-                </p>
-              </div>
-            </div>
+            <Tabs filmCard={promoFilm}/>
           </div>
         </div>
       </section>
@@ -115,8 +85,7 @@ function MoviePage({promoFilms, films}: FilmsScreenProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-
-          <FilmCards films={films} />
+          <FilmCards films={films} filmsCount={MoreLikeFilmsCount}/>
         </section>
 
         <footer className="page-footer">
