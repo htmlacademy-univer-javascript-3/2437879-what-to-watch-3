@@ -1,10 +1,23 @@
 export const MoreLikeFilmsCount = 4;
 export const ShowFilmsCount = 8;
+export const hoverFilmCardTime = 1000;
+export enum Genre {
+  All = 'All Genres',
+  Comedy = 'Comedy',
+  Crime = 'Crime',
+  Documentary = 'Documentary',
+  Drama = 'Drama',
+  Horror = 'Horror',
+  KidsFamily = 'Kids & Family',
+  Romance = 'Romance',
+  SciFi = 'Sci-Fi',
+  Thriller = 'Thriller'
+}
 
 export const PromoFilm = {
   id: 1,
   title: 'The Grand Budapest Hotel',
-  genre: 'Drama',
+  genre: Genre.Drama,
   year: 2014,
   src: '/img/bg-the-grand-budapest-hotel.jpg',
   poster: '/img/the-grand-budapest-hotel-poster.jpg',

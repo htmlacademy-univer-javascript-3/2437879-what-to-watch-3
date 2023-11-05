@@ -9,18 +9,18 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {PromoFilmType, FilmCardType} from '../../types/films';
-import {mainFilm, films} from '../../mocks/films';
+import {mainFilm} from '../../mocks/films';
 
 type AppProps = {
   promoFilm: PromoFilmType;
   films: FilmCardType[];
 }
 
-function App(props: AppProps): JSX.Element {
+function App({promoFilm, films}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainPage {...props} />} />
+        <Route path={AppRoute.Main} element={<MainPage promoFilm={promoFilm} />} />
         <Route path={AppRoute.SignIn} element={<SignInPage />} />
         <Route path={AppRoute.MyList} element={
           <PrivateRoute
