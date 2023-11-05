@@ -1,13 +1,15 @@
 import {FilmCards} from './film-cards';
-import {FilmCardType, PromoFilmType} from '../../types/films';
+import {PromoFilmType} from '../../types/films';
 import {ShowFilmsCount} from '../../const';
+import GenreList from '../../components/genre/genre-list';
+import {useAppSelector} from '../../components/hooks/hooks';
 
 type MainPageProps = {
   promoFilm: PromoFilmType;
-  films: FilmCardType[];
 }
 
-function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
+function MainPage({promoFilm}: MainPageProps): JSX.Element {
+  const films = useAppSelector((state) => state.films);
   return (
     <>
       <section className="film-card">
@@ -77,38 +79,7 @@ function MainPage({promoFilm, films}: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenreList />
 
           <div className="catalog__films-list">
             <FilmCards films={films} filmsCount={ShowFilmsCount}/>
