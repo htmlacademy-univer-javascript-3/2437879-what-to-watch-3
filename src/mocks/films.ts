@@ -186,7 +186,168 @@ export const films: FilmCardType[] = [
     releaseDate: 2007,
     pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
     video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-  },
+  }, {
+    id: 9,
+    title: 'No Country for Old Men 2',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }, {
+    id: 10,
+    title: 'No Country for Old Men 3',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }, {
+    id: 11,
+    title: 'No Country for Old Men 4',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }, {
+    id: 12,
+    title: 'No Country for Old Men 5',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }, {
+    id: 13,
+    title: 'No Country for Old Men 6',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }, {
+    id: 14,
+    title: 'No Country for Old Men 7',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }, {
+    id: 15,
+    title: 'No Country for Old Men 8',
+    src: 'img/no-country-for-old-men.jpg',
+    poster: 'img/the-grand-budapest-hotel-poster.jpg',
+    ratingScore: 8.8,
+    ratingLevel: 'Very Good',
+    ratingCount: 302,
+    description: 'In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge\n' +
+      '                  Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave`s friend and protege.\n' +
+      '                \n' +
+      '\n' +
+      '                Gustave prides himself on providing first-class service to the hotel&apos;s guests, including satisfying\n' +
+      '                  the sexual needs of the many elderly women who stay there. When one of Gustave`s lovers dies\n' +
+      '                  mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her\n' +
+      '                  murder.',
+    director: 'Quentin Tarantino',
+    starring: ['Matt Damon', 'Tom Hanks', 'Takeshi Kitano', 'Christian Bale'],
+    genre: Genre.Drama,
+    runTime: 148,
+    releaseDate: 2007,
+    pictureBackground: 'img/bg-the-grand-budapest-hotel.jpg',
+    video: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+  }
 ];
 
 export const mainFilm = {

@@ -1,8 +1,8 @@
 import {FilmCards} from './film-cards';
 import {PromoFilmType} from '../../types/films';
-import {ShowFilmsCount} from '../../const';
 import GenreList from '../../components/genre/genre-list';
 import {useAppSelector} from '../../components/hooks/hooks';
+import ShowMoreButton from '../../components/show-more-button/show-more-button';
 
 type MainPageProps = {
   promoFilm: PromoFilmType;
@@ -10,6 +10,8 @@ type MainPageProps = {
 
 function MainPage({promoFilm}: MainPageProps): JSX.Element {
   const films = useAppSelector((state) => state.films);
+  const filmsCount = useAppSelector((state) => state.filmsCount);
+
   return (
     <>
       <section className="film-card">
@@ -81,13 +83,12 @@ function MainPage({promoFilm}: MainPageProps): JSX.Element {
 
           <GenreList />
 
-          <div className="catalog__films-list">
-            <FilmCards films={films} filmsCount={ShowFilmsCount}/>
-          </div>
+          <FilmCards films={films} filmsCount={filmsCount}/>
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {filmsCount < films.length && <ShowMoreButton />}
           </div>
+
         </section>
 
         <footer className="page-footer">
