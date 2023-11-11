@@ -14,7 +14,7 @@ function AddReviewPage({promoFilms}: AddReviewPageProps): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={promoFilms.src} alt={promoFilms.title}/>
+          <img src={promoFilms.backgroundImage} alt={promoFilms.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -31,7 +31,7 @@ function AddReviewPage({promoFilms}: AddReviewPageProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={AppRoute.Film} className="breadcrumbs__link">{promoFilms.title}</Link>
+                <Link to={AppRoute.Film} className="breadcrumbs__link">{promoFilms.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -52,7 +52,7 @@ function AddReviewPage({promoFilms}: AddReviewPageProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={promoFilms.poster} alt={`${promoFilms.title} poster`} width="218"
+          <img src={promoFilms.posterImage} alt={`${promoFilms.name} poster`} width="218"
             height="327"
           />
         </div>

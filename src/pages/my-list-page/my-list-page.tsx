@@ -1,10 +1,10 @@
-import {FilmCardType} from '../../types/films';
+import {FilmType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
 import {AppRoute, ShowFilmsCount} from '../../const';
 import {Link} from 'react-router-dom';
 
 type MyListPageProps = {
-  films: FilmCardType[];
+  films: FilmType[];
 };
 
 function MyListPage({films}: MyListPageProps): JSX.Element {

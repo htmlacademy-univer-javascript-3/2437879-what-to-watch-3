@@ -1,12 +1,12 @@
-import {FilmCardType} from '../../types/films';
+import {FilmType} from '../../types/films';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../../components/video-player/video-player';
 
 type FilmCardProps = {
-  promoFilm: FilmCardType;
-  activeFilm: number | null;
-  onMouseOver: (id: number) => void;
+  promoFilm: FilmType;
+  activeFilm: string | null;
+  onMouseOver: (id: string) => void;
   onMouseOut: () => void;
 };
 
@@ -24,7 +24,7 @@ function FilmCard({promoFilm, activeFilm, onMouseOver, onMouseOut}: FilmCardProp
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={AppRoute.Film} className="small-film-card__link">{promoFilm.title}
+        <Link to={AppRoute.Film} className="small-film-card__link">{promoFilm.name}
         </Link>
       </h3>
     </article>

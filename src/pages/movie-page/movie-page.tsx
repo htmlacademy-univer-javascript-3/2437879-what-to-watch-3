@@ -1,4 +1,4 @@
-import {FilmCardType} from '../../types/films';
+import {FilmCardType, FilmType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
@@ -7,7 +7,7 @@ import {MoreLikeFilmsCount} from '../../const';
 
 type MoviePageProps = {
   promoFilm: FilmCardType;
-  films: FilmCardType[];
+  films: FilmType[];
 }
 
 function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
@@ -16,7 +16,7 @@ function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={promoFilm.src} alt={promoFilm.title}/>
+            <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -44,10 +44,10 @@ function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilm.title}</h2>
+              <h2 className="film-card__title">{promoFilm.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{promoFilm.genre}</span>
-                <span className="film-card__year">{promoFilm.releaseDate}</span>
+                <span className="film-card__year">{promoFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -73,7 +73,7 @@ function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={promoFilm.poster} alt={`${promoFilm.title} poster`} width="218"
+              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218"
                 height="327"
               />
             </div>
