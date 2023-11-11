@@ -1,9 +1,9 @@
 import {useEffect, useRef, useState} from 'react';
-import {FilmCardType} from '../../types/films';
+import {FilmType} from '../../types/films';
 
 type VideoPlayerProps = {
-  promoFilm: FilmCardType;
-  activeFilm: number | null;
+  promoFilm: FilmType;
+  activeFilm: string | null;
   isMuted: boolean;
 }
 
@@ -38,16 +38,16 @@ export default function VideoPlayer({promoFilm, activeFilm, isMuted}: VideoPlaye
     }
 
     videoElement.pause();
-    videoElement.src = promoFilm.video;
-  }, [activeFilm, isLoaded, promoFilm.id, promoFilm.video]);
+    videoElement.src = promoFilm.previewVideoLink;
+  }, [activeFilm, isLoaded, promoFilm.id, promoFilm.previewVideoLink]);
 
   return (
     <video
       width="280"
       height="175"
-      poster={promoFilm.src}
+      poster={promoFilm.previewImage}
       ref={videoRef}
-      src={promoFilm.video}
+      src={promoFilm.previewVideoLink}
       muted={isMuted}
     >
     </video>

@@ -1,11 +1,12 @@
 import {Genre} from '../../const';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {useEffect} from 'react';
-import {getFilmsByGenre, setActiveGenre, setGenres} from '../../store/action';
+import {setActiveGenre, setGenres} from '../../store/action';
 import GenreItem from './genre-item';
 
 export default function GenreList() {
-  const {films, genres} = useAppSelector((state) => state);
+  const films = useAppSelector((state) => state.films);
+  const genres = useAppSelector((state) => state.genres);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -17,7 +18,6 @@ export default function GenreList() {
 
   const handleGenreClick = (genre: Genre) => {
     dispatch(setActiveGenre(genre));
-    dispatch(getFilmsByGenre());
   };
 
   return (

@@ -1,19 +1,19 @@
 import FilmCard from './film-card';
-import {FilmCardType} from '../../types/films';
+import {FilmType} from '../../types/films';
 import {useState} from 'react';
 import {TimeoutId} from '@reduxjs/toolkit/dist/query/core/buildMiddleware/types';
 import {hoverFilmCardTime} from '../../const';
 
 type FilmCardsProps = {
-  films: FilmCardType[];
+  films: FilmType[];
   filmsCount: number;
 };
 
 export function FilmCards({films, filmsCount}: FilmCardsProps): JSX.Element {
-  const [activeFilm, setSelectedFilm] = useState<number | null>(null);
+  const [activeFilm, setSelectedFilm] = useState<string | null>(null);
   let timer: undefined | TimeoutId = undefined;
 
-  const handleFilmFocus = (id: number) => {
+  const handleFilmFocus = (id: string) => {
     timer = setTimeout(() => {
       setSelectedFilm(id);
     }, hoverFilmCardTime);

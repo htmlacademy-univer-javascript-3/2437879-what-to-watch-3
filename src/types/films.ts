@@ -1,7 +1,7 @@
 import {Genre} from '../const';
 
 export type FilmType = {
-  id: number;
+  id: string;
   name: string;
   previewImage: string;
   previewVideoLink: string;
@@ -9,30 +9,32 @@ export type FilmType = {
 }
 
 export type PromoFilmType = {
-  id: number;
-  title: string;
+  id: string;
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  videoLink: string;
   genre: Genre;
-  year: number;
-  src: string;
-  poster: string;
+  released: number;
+  isFavorite: boolean;
 };
 
 export type FilmCardType = {
-  id: number;
-  title: string;
-  src: string;
-  poster: string;
-  ratingScore: number;
-  ratingLevel: string;
-  ratingCount: number;
+  id: string;
+  name: string;
+  posterImage: string;
+  backgroundImage: string;
+  backgroundColor: string;
+  videoLink: string;
   description: string;
+  rating: number;
+  scoresCount: number;
   director: string;
   starring: string[];
-  genre: Genre;
   runTime: number;
-  releaseDate: number;
-  pictureBackground: string;
-  video: string;
+  genre: Genre;
+  released: number;
+  isFavorite: boolean;
 };
 
 export type ReviewType = {

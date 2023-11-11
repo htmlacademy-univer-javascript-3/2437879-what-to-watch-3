@@ -10,14 +10,14 @@ export default function Overview({filmCard}: OverviewProps): JSX.Element {
     <>
       <div className="film-rating">
         <div className="film-rating__score">
-          {filmCard.ratingScore}
+          {filmCard.rating}
         </div>
         <p className="film-rating__meta">
           <span className="film-rating__level">
-            {getFilmGrade(filmCard.ratingScore)}
+            {getFilmGrade(filmCard.rating)}
           </span>
           <span className="film-rating__count">
-            {filmCard.ratingCount} ratings
+            {filmCard.scoresCount} ratings
           </span>
         </p>
       </div>
