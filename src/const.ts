@@ -3,6 +3,7 @@ import {FilmCardType} from './types/films';
 export const MoreLikeFilmsCount = 4;
 export const ShowFilmsCount = 8;
 export const hoverFilmCardTime = 1000;
+export const ShowErrorTimeout = 2000;
 export enum Genre {
   All = 'All Genres',
   Comedy = 'Comedy',
@@ -56,6 +57,13 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export type AuthInfo = {
+  name: string;
+  avatarUrl: string;
+  email: string;
+  token: string;
+};
 
 export enum AppRoute {
   Main = '/',

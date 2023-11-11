@@ -1,7 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {Genre, ShowFilmsCount} from '../const';
+import {AuthorizationStatus, Genre, ShowFilmsCount} from '../const';
 import {PromoFilmType, FilmType} from '../types/films';
-import {setActiveGenre, setGenres, addShowedFilms, loadFilms, loadPromoFilm} from './action';
+import {setActiveGenre, setGenres, addShowedFilms, loadFilms, loadPromoFilm, requireAuthorization, setError, setUserImage} from './action';
 
 type initialStateProps = {
   films: FilmType[];
@@ -10,6 +10,9 @@ type initialStateProps = {
   genres: Genre[];
   activeGenre: Genre;
   filmsCount: number;
+  authorizationStatus: AuthorizationStatus;
+  userImage: string;
+  error: string | null;
 }
 
 const initialState: initialStateProps = {
@@ -19,6 +22,9 @@ const initialState: initialStateProps = {
   genres: [],
   activeGenre: Genre.All,
   filmsCount: ShowFilmsCount,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userImage: '',
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -51,8 +57,16 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserImage, (state, action) => {
+      state.userImage = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
-
 
 export {reducer};

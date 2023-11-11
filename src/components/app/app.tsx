@@ -5,7 +5,7 @@ import MoviePage from '../../pages/movie-page/movie-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {FilmType} from '../../types/films';
@@ -22,7 +22,7 @@ function App({films}: AppProps): JSX.Element {
         <Route path={AppRoute.Main} element={<MainPage />} />
         <Route path={AppRoute.SignIn} element={<SignInPage />} />
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus = {AuthorizationStatus.Auth}>
+          <PrivateRoute>
             <MyListPage films={films}/>
           </PrivateRoute>
         }
