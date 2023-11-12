@@ -1,12 +1,15 @@
-import {useAppSelector} from '../../components/hooks/hooks';
-import {AuthorizationStatus} from '../../const';
+import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {logOut} from '../../services/api-actions';
 
 export default function UserBlock(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
+  const dispatch = useAppDispatch();
   const userImage = useAppSelector((state) => state.userImage);
+  const handleSignOutClick = () => {
+    dispatch(logOut());
+  };
 
   if (authorizationStatus !== AuthorizationStatus.Auth) {
     return (
@@ -22,11 +25,13 @@ export default function UserBlock(): JSX.Element {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src={userImage} alt="User avatar" width="63" height="63"/>
+          <Link to={AppRoute.MyList}>
+            <img src={userImage} alt="User avatar" width="63" height="63" />
+          </Link>
         </div>
       </li>
       <li className="user-block__item">
-        <a className="user-block__link">Sign out</a>
+        <a className="user-block__link" onClick={handleSignOutClick}>Sign out</a>
       </li>
     </ul>
   );

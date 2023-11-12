@@ -4,28 +4,40 @@ import {ChangeEventHandler, FormEventHandler, useState} from 'react';
 import {useAppDispatch} from '../../components/hooks/hooks';
 import {login} from '../../services/api-actions';
 import {useNavigate} from 'react-router-dom';
-
-export type UserFormValues = {
-  email: string;
-  password: string;
-}
+import {UserFormValues} from '../../types/users';
 
 function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState<UserFormValues>({
     email: '',
     password: '',
   });
 
-  const handleFieldChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
-    const { name, value } = evt.target;
-    setFormData({ ...formData, [name]: value });
+  const [, setIsValid] = useState(false);
+
+  const handleValidate = (newFormData: UserFormValues) => {
+    const validated =
+      newFormData.email.match(/[a-zA-Z0-9.]+@[a-zA-Z]+[.][a-zA-Z]{2,4}$/) &&
+      newFormData.password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/);
+    setIsValid(!!validated);
   };
 
-  const handleSubmit: FormEventHandler = () => {
+  const handleFieldChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
+    const { name, value } = evt.target;
+    setFormData(() => {
+      const newFormData: UserFormValues = { ...formData, [name]: value };
+      handleValidate(newFormData);
+
+      return newFormData;
+    });
+  };
+
+  const handleSubmit: FormEventHandler<HTMLButtonElement> = (evt) => {
+    evt.preventDefault();
     dispatch(login(formData));
-    navigate('/');
+    navigate(AppRoute.Main);
   };
 
   return (
@@ -43,23 +55,23 @@ function SignInPage(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <form className="sign-in__form">
+        <form action="#" className="sign-in__form">
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-                id="user-email" onChange={handleFieldChange}
+                id="user-email" onChange={handleFieldChange} required
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
               <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-                id="user-password" onChange={handleFieldChange}
+                id="user-password" onChange={handleFieldChange} required
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit" onChange={handleSubmit}>Sign in</button>
+            <button className="sign-in__btn" type="submit" onSubmit={handleSubmit}>Sign in</button>
           </div>
         </form>
       </div>

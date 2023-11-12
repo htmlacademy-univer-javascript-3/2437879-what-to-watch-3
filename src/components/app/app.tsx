@@ -8,14 +8,8 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {FilmType} from '../../types/films';
-import {mainFilm} from '../../mocks/films';
 
-type AppProps = {
-  films: FilmType[];
-}
-
-function App({films}: AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -23,15 +17,15 @@ function App({films}: AppProps): JSX.Element {
         <Route path={AppRoute.SignIn} element={<SignInPage />} />
         <Route path={AppRoute.MyList} element={
           <PrivateRoute>
-            <MyListPage films={films}/>
+            <MyListPage />
           </PrivateRoute>
         }
         />
         <Route path={AppRoute.Film}>
-          <Route index element={<MoviePage promoFilm={mainFilm} films={films}/>} />
-          <Route path={AppRoute.AddReview} element={<AddReviewPage promoFilms={mainFilm}/>} />
+          <Route index element={<MoviePage />} />
+          <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
         </Route>
-        <Route path={AppRoute.Player} element={<PlayerPage videoUrl={mainFilm.videoLink}/>} />
+        <Route path={AppRoute.Player} element={<PlayerPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

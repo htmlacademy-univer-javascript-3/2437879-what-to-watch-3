@@ -1,21 +1,43 @@
-import {useState} from 'react';
-import {FilmCardType} from '../../types/films';
+import {useEffect} from 'react';
 import {AddReviewForm} from './add-review-form';
-import {AppRoute} from '../../const';
-import {Link} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import UserBlock from '../main-page/user-block';
+import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
+import {fetchFilmAction} from '../../services/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
-type AddReviewPageProps = {
-  promoFilms: FilmCardType;
-};
+function AddReviewPage(): JSX.Element {
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-function AddReviewPage({promoFilms}: AddReviewPageProps): JSX.Element {
-  const [, setFilmRating] = useState(0);
+  const filmCard = useAppSelector((state) => state.filmCard);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmAction(id));
+    }
+  }, [dispatch, id]);
+
+  if (authorizationStatus !== AuthorizationStatus.Auth) {
+    navigate(AppRoute.SignIn);
+  }
+
+  if (!id) {
+    navigate(AppRoute.NotFound);
+  }
+
+  if (!filmCard) {
+    return <Spinner />;
+  }
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={promoFilms.backgroundImage} alt={promoFilms.name}/>
+          <img src={filmCard.backgroundImage} alt={filmCard.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -32,7 +54,7 @@ function AddReviewPage({promoFilms}: AddReviewPageProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <Link to={AppRoute.Film} className="breadcrumbs__link">{promoFilms.name}</Link>
+                <Link to={`/film/${filmCard.id}`} className="breadcrumbs__link">{filmCard.name}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -44,15 +66,12 @@ function AddReviewPage({promoFilms}: AddReviewPageProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={promoFilms.posterImage} alt={`${promoFilms.name} poster`} width="218"
+          <img src={filmCard.posterImage} alt={`${filmCard.name} poster`} width="218"
             height="327"
           />
         </div>
       </div>
-
-      <div className="add-review">
-        <AddReviewForm onAnswer={(rating) => setFilmRating(rating)} />
-      </div>
+      <AddReviewForm />
     </section>
   );
 }

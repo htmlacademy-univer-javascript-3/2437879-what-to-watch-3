@@ -1,15 +1,13 @@
 import UserReview from './user-review';
-import {ReviewType} from '../../types/films';
+import {useAppSelector} from '../hooks/hooks';
 
-type ReviewsProps = {
-  reviews: ReviewType[];
-};
+export default function Reviews(): JSX.Element {
+  const comments = useAppSelector((state) => state.comments);
 
-export default function Reviews({reviews}: ReviewsProps): JSX.Element {
   return (
     <div className="film-card__reviews-col">
-      {reviews.map((review) => (
-        <UserReview key={review.id} review={review} />
+      {comments.map((comment) => (
+        <UserReview key={comment.id} comment={comment} />
       ))}
     </div>
   );

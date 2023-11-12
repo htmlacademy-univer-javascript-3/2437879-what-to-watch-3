@@ -1,7 +1,6 @@
 import {SyntheticEvent, useState} from 'react';
 import {FilmCardType} from '../../types/films';
 import {TabType} from '../../const';
-import {reviews} from '../../mocks/reviews';
 import TabLink from './tab-link';
 import Details from './details';
 import Overview from './overview';
@@ -16,7 +15,7 @@ export default function Tabs({filmCard}: TabsProps): JSX.Element {
   const tabs = {
     [TabType.Overview]: <Overview filmCard={filmCard} />,
     [TabType.Details]: <Details filmCard={filmCard} />,
-    [TabType.Reviews]: <Reviews reviews={reviews} />,
+    [TabType.Reviews]: <Reviews />,
   };
 
   const handleTabChange = (evt: SyntheticEvent) => {
