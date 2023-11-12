@@ -4,6 +4,11 @@ export const MoreLikeFilmsCount = 4;
 export const ShowFilmsCount = 8;
 export const hoverFilmCardTime = 1000;
 export const ShowErrorTimeout = 2000;
+export const AuthTokenName = 'wtw-token';
+export const CommentLength = {
+  Min: 50,
+  Max: 400,
+};
 export enum Genre {
   All = 'All Genres',
   Comedy = 'Comedy',
@@ -58,13 +63,6 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export type AuthInfo = {
-  name: string;
-  avatarUrl: string;
-  email: string;
-  token: string;
-};
-
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -72,6 +70,7 @@ export enum AppRoute {
   Film = '/films/:id',
   AddReview = '/films/:id/review',
   Player = '/player/:id',
+  NotFound = '*',
 }
 
 export enum FilmStatus {

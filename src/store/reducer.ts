@@ -1,7 +1,22 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {AuthorizationStatus, Genre, ShowFilmsCount} from '../const';
-import {PromoFilmType, FilmType} from '../types/films';
-import {setActiveGenre, setGenres, addShowedFilms, loadFilms, loadPromoFilm, requireAuthorization, setError, setUserImage} from './action';
+import {FilmType, PromoFilmType, FilmCardType} from '../types/films';
+import {CommentType} from '../types/users';
+import {
+  addShowedFilms,
+  loadFilms,
+  loadPromoFilm,
+  requireAuthorization,
+  setActiveGenre,
+  setError,
+  setGenres,
+  setUserImage,
+  loadFilm,
+  loadMyList,
+  loadComments,
+  addComment,
+  loadMoreLikeThis,
+} from './action';
 
 type initialStateProps = {
   films: FilmType[];
@@ -13,6 +28,10 @@ type initialStateProps = {
   authorizationStatus: AuthorizationStatus;
   userImage: string;
   error: string | null;
+  filmCard: FilmCardType | null;
+  moreLikeThis: FilmType[];
+  comments: CommentType[];
+  myList: FilmType[];
 }
 
 const initialState: initialStateProps = {
@@ -25,6 +44,10 @@ const initialState: initialStateProps = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userImage: '',
   error: null,
+  filmCard: null,
+  moreLikeThis: [],
+  comments: [],
+  myList: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -66,6 +89,21 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(loadFilm, (state, action) => {
+      state.filmCard = action.payload;
+    })
+    .addCase(loadMoreLikeThis, (state, action) => {
+      state.moreLikeThis = action.payload;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(addComment, (state, action) => {
+      state.comments = [...state.comments, action.payload];
+    })
+    .addCase(loadMyList, (state, action) => {
+      state.myList = action.payload;
     });
 });
 

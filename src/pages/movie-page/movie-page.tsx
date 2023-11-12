@@ -1,23 +1,45 @@
-import {FilmCardType, FilmType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
-import {AppRoute} from '../../const';
-import {Link} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, MoreLikeFilmsCount} from '../../const';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
-import {MoreLikeFilmsCount} from '../../const';
 import UserBlock from '../main-page/user-block';
+import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
+import Spinner from '../../components/spinner/spinner';
+import {useEffect} from 'react';
+import {fetchComments, fetchFilmAction, fetchMoreLikeThis} from '../../services/api-actions';
 
-type MoviePageProps = {
-  promoFilm: FilmCardType;
-  films: FilmType[];
-}
+function MoviePage(): JSX.Element {
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
+  const error = useAppSelector((state) => state.error);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const filmCard = useAppSelector((state) => state.filmCard);
+  const moreLikeThis = useAppSelector((state) => state.moreLikeThis);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchFilmAction(id));
+      dispatch(fetchMoreLikeThis(id));
+      dispatch(fetchComments(id));
+    }
+  }, [dispatch, id]);
+
+  if (error || !id) {
+    navigate(AppRoute.NotFound);
+  }
+
+  if (!filmCard || filmCard.id !== id) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={promoFilm.backgroundImage} alt={promoFilm.name}/>
+            <img src={filmCard.backgroundImage} alt={filmCard.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -36,19 +58,19 @@ function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilm.name}</h2>
+              <h2 className="film-card__title">{filmCard.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilm.genre}</span>
-                <span className="film-card__year">{promoFilm.released}</span>
+                <span className="film-card__genre">{filmCard.genre}</span>
+                <span className="film-card__year">{filmCard.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
+                <Link to={`/player/${filmCard.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
+                </Link>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
@@ -56,7 +78,9 @@ function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                {authorizationStatus === AuthorizationStatus.Auth && (
+                  <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                )}
               </div>
             </div>
           </div>
@@ -65,20 +89,22 @@ function MoviePage({promoFilm, films}: MoviePageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={promoFilm.posterImage} alt={`${promoFilm.name} poster`} width="218"
+              <img src={filmCard.posterImage} alt={`${filmCard.name} poster`} width="218"
                 height="327"
               />
             </div>
-            <Tabs filmCard={promoFilm}/>
+            <Tabs filmCard={filmCard}/>
           </div>
         </div>
       </section>
 
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <FilmCards films={films} filmsCount={MoreLikeFilmsCount}/>
-        </section>
+        {moreLikeThis.length !== 0 && (
+          <section className="catalog catalog--like-this">
+            <h2 className="catalog__title">More like this</h2>
+            <FilmCards films={moreLikeThis} filmsCount={MoreLikeFilmsCount}/>
+          </section>
+        )}
 
         <footer className="page-footer">
           <div className="logo">

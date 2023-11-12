@@ -1,20 +1,25 @@
-import {useAppSelector} from '../hooks/hooks';
+import {useAppSelector, useAppDispatch} from '../hooks/hooks';
 import {Genre} from '../../const';
+import {setActiveGenre} from '../../store/action';
 
 type GenreItemProps = {
   genre: Genre;
-  onClick: (genre: Genre) => void;
 };
 
-export default function GenreItem({genre, onClick}: GenreItemProps): JSX.Element {
+export default function GenreItem({genre}: GenreItemProps): JSX.Element {
   const activeGenre = useAppSelector((state) => state.activeGenre);
+  const dispatch = useAppDispatch();
+
+  const handleGenreClick = () => {
+    dispatch(setActiveGenre(genre));
+  };
 
   return (
     <li
       className={`catalog__genres-item ${
         genre === activeGenre ? 'catalog__genres-item--active' : ''
       }`}
-      onClick={() => onClick(genre)}
+      onClick={handleGenreClick}
     >
       <a className="catalog__genres-link" id={genre}>
         {genre}

@@ -1,13 +1,20 @@
-type PlayerPageProps = {
-  videoUrl: string;
-};
+import {Link} from 'react-router-dom';
+import {useAppSelector} from '../../components/hooks/hooks';
+import Spinner from '../../components/spinner/spinner';
+import {AppRoute} from '../../const';
 
-function PlayerPage({videoUrl}: PlayerPageProps): JSX.Element {
+function PlayerPage(): JSX.Element {
+  const film = useAppSelector((state) => state.filmCard);
+
+  if (!film) {
+    return <Spinner />;
+  }
+
   return (
     <div className="player">
-      <video src={videoUrl} className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={film.videoLink} className="player__video" poster={film.backgroundImage}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <Link to={AppRoute.Main} type="button" className="player__exit">Exit</Link>
 
       <div className="player__controls">
         <div className="player__controls-row">

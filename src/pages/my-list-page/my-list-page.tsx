@@ -1,14 +1,19 @@
-import {FilmType} from '../../types/films';
 import {FilmCards} from '../main-page/film-cards';
 import {AppRoute, ShowFilmsCount} from '../../const';
 import {Link} from 'react-router-dom';
 import UserBlock from '../main-page/user-block';
+import {useEffect} from 'react';
+import {fetchMyList} from '../../services/api-actions';
+import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
 
-type MyListPageProps = {
-  films: FilmType[];
-};
+function MyListPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const films = useAppSelector((state) => state.myList);
 
-function MyListPage({films}: MyListPageProps): JSX.Element {
+  useEffect(() => {
+    dispatch(fetchMyList());
+  }, [dispatch]);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -20,7 +25,7 @@ function MyListPage({films}: MyListPageProps): JSX.Element {
           </Link>
         </div>
 
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{films.length}</span></h1>
         <UserBlock />
       </header>
 

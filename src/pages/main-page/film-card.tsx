@@ -1,5 +1,4 @@
 import {FilmType} from '../../types/films';
-import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import VideoPlayer from '../../components/video-player/video-player';
 
@@ -24,7 +23,7 @@ function FilmCard({promoFilm, activeFilm, onMouseOver, onMouseOut}: FilmCardProp
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link to={AppRoute.Film} className="small-film-card__link">{promoFilm.name}
+        <Link to={`/films/${promoFilm.id}`} className="small-film-card__link">{promoFilm.name}
         </Link>
       </h3>
     </article>

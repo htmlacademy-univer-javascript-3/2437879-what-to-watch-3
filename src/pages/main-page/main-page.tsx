@@ -4,11 +4,17 @@ import {useAppSelector} from '../../components/hooks/hooks';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../../components/spinner/spinner';
 import PromoFilm from './promo-film';
+import {useState} from 'react';
+import {ShowFilmsCount} from '../../const';
+import {useFilmsByGenre} from '../../components/hooks/hooks';
 
 function MainPage(): JSX.Element {
-  const films = useAppSelector((state) => state.filmsByGenre);
+  const [filmsCount, setFilmsCount] = useState(ShowFilmsCount);
+  const films = useFilmsByGenre();
   const promoFilm = useAppSelector((state) => state.promoFilm);
-  const filmsCount = useAppSelector((state) => state.filmsCount);
+
+  const handleShowMoreButtonClick = () =>
+    setFilmsCount((prevState) => prevState + ShowFilmsCount);
 
   return (
     <>
@@ -28,7 +34,9 @@ function MainPage(): JSX.Element {
           )}
 
           <div className="catalog__more">
-            {filmsCount < films.length && <ShowMoreButton />}
+            {filmsCount < films.length && (
+              <ShowMoreButton onClick={handleShowMoreButtonClick}/>
+            )}
           </div>
 
         </section>
