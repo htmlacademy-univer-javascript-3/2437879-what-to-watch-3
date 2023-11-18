@@ -1,26 +1,36 @@
 import {useState, ChangeEventHandler} from 'react';
-import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
+import {useAppDispatch} from '../../components/hooks/hooks';
 import {sendComment} from '../../services/api-actions';
 import Rating from './rating';
+import {useNavigate} from 'react-router-dom';
+import {CommentLength} from '../../const';
 
-export function AddReviewForm(): JSX.Element {
-  const filmCard = useAppSelector((state) => state.filmCard);
+export type AddReviewFormProps = {
+  id: string;
+};
+
+export function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const validate = () =>
+    rating !== 0 &&
+    comment.length >= CommentLength.Min &&
+    comment.length <= CommentLength.Max;
 
   const handleRatingChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
     setRating(parseInt(evt.target.value, 10));
   };
 
-  const handleCommentChange: ChangeEventHandler<HTMLTextAreaElement> = (evt) => {
+  const handleCommentChange: ChangeEventHandler<HTMLTextAreaElement> = (evt,) => {
     setComment(evt.target.value);
   };
 
   const handleSubmit = () => {
-    if (filmCard?.id) {
-      dispatch(sendComment({ comment, rating, id: filmCard.id }));
-    }
+    dispatch(sendComment({ comment, rating, id }));
+    navigate(`/films/${id}`);
   };
 
   return (
@@ -41,7 +51,7 @@ export function AddReviewForm(): JSX.Element {
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit" onClick={handleSubmit}>
+            <button className="add-review__btn" type="submit" onClick={handleSubmit} disabled={!validate()}>
               Post
             </button>
           </div>

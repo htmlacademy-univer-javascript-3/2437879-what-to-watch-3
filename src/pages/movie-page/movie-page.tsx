@@ -1,37 +1,32 @@
 import {FilmCards} from '../main-page/film-cards';
-import {AppRoute, AuthorizationStatus, MoreLikeFilmsCount} from '../../const';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {AppRoute, MoreLikeFilmsCount} from '../../const';
+import {Link, useParams} from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../main-page/user-block';
 import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
-import Spinner from '../../components/spinner/spinner';
 import {useEffect} from 'react';
-import {fetchComments, fetchFilmAction, fetchMoreLikeThis} from '../../services/api-actions';
+import {fetchFilmAction} from '../../services/api-actions';
+import {getAuthorized} from '../../services/user/selectors';
+import {getFilmCard, getMoreLikeThis} from '../../services/films/selectors';
+import Logo from '../../components/logo/logo';
+import MyListButton from '../../components/my-list-button/my-list-button';
 
-function MoviePage(): JSX.Element {
+function MoviePage() {
   const {id} = useParams();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const error = useAppSelector((state) => state.error);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const filmCard = useAppSelector((state) => state.filmCard);
-  const moreLikeThis = useAppSelector((state) => state.moreLikeThis);
+  const authorized = useAppSelector(getAuthorized);
+  const filmCard = useAppSelector(getFilmCard);
+  const moreLikeThis = useAppSelector(getMoreLikeThis);
 
   useEffect(() => {
-    if (id) {
+    if (id && id !== filmCard?.id) {
       dispatch(fetchFilmAction(id));
-      dispatch(fetchMoreLikeThis(id));
-      dispatch(fetchComments(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, filmCard?.id, id]);
 
-  if (error || !id) {
-    navigate(AppRoute.NotFound);
-  }
-
-  if (!filmCard || filmCard.id !== id) {
-    return <Spinner />;
+  if (!filmCard) {
+    return null;
   }
 
   return (
@@ -45,13 +40,7 @@ function MoviePage(): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoute.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logo />
 
             <UserBlock />
           </header>
@@ -78,8 +67,13 @@ function MoviePage(): JSX.Element {
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </button>
-                {authorizationStatus === AuthorizationStatus.Auth && (
-                  <Link to={AppRoute.AddReview} className="btn film-card__button">Add review</Link>
+                {authorized && (
+                  <>
+                    <MyListButton filmCard={filmCard} />
+                    <Link to={'review'} className="btn film-card__button">
+                      Add review
+                    </Link>
+                  </>
                 )}
               </div>
             </div>

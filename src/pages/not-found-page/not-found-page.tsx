@@ -1,11 +1,26 @@
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {useAppDispatch} from '../../components/hooks/hooks';
+import {fetchFilmsAction} from '../../services/api-actions';
+
 
 function NotFoundPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const handleTryAgain = () => {
+    dispatch(fetchFilmsAction());
+  };
+
   return (
     <section className="user-page">
-      <h1>404. Page not found</h1>
-      <Link to={AppRoute.Main}>Вернуться на главную</Link>
+      <p className="error__text">
+        Произошла ошибка. Пожалуйста, попробуйте ещё раз
+      </p>
+      <button
+        onClick={handleTryAgain}
+        className="replay replay--error"
+        type="button"
+      >
+        Попробовать снова
+      </button>
     </section>
   );
 }

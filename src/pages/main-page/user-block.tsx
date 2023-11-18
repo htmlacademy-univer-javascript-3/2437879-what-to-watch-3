@@ -1,17 +1,18 @@
 import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {logOut} from '../../services/api-actions';
+import {getAuthorized, getUserImage} from '../../services/user/selectors';
 
 export default function UserBlock(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
-  const userImage = useAppSelector((state) => state.userImage);
+  const authorized = useAppSelector(getAuthorized);
+  const userImage = useAppSelector(getUserImage);
   const handleSignOutClick = () => {
     dispatch(logOut());
   };
 
-  if (authorizationStatus !== AuthorizationStatus.Auth) {
+  if (!authorized) {
     return (
       <div className="user-block">
         <Link to={AppRoute.SignIn} className="user-block__link">

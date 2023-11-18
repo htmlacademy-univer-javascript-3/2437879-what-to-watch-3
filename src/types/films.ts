@@ -1,5 +1,7 @@
 import {Genre} from '../const';
 
+export type FavoriteFilmType = FilmType & FilmCardType;
+
 export type FilmType = {
   id: string;
   name: string;

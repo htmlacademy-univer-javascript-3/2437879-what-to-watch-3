@@ -1,13 +1,13 @@
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../components/hooks/hooks';
-import Spinner from '../../components/spinner/spinner';
 import {AppRoute} from '../../const';
+import {getFilmCard} from '../../services/films/selectors';
 
-function PlayerPage(): JSX.Element {
-  const film = useAppSelector((state) => state.filmCard);
+function PlayerPage() {
+  const film = useAppSelector(getFilmCard);
 
   if (!film) {
-    return <Spinner />;
+    return null;
   }
 
   return (
