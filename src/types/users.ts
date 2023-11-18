@@ -1,3 +1,5 @@
+export type ImageUrl = string;
+
 export type UserFormValues = {
   email: string;
   password: string;

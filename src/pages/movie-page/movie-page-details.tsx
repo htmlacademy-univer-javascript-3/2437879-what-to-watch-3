@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import UserBlock from '../main-page/user-block';
+import Logo from '../../components/logo/logo';
 
 function MoviePageDetails(): JSX.Element {
   return (
@@ -14,13 +15,7 @@ function MoviePageDetails(): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
 
           <header className="page-header film-card__head">
-            <div className="logo">
-              <Link to={AppRoute.Main} className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
+            <Logo />
 
             <UserBlock />
           </header>

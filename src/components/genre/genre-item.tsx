@@ -1,13 +1,14 @@
 import {useAppSelector, useAppDispatch} from '../hooks/hooks';
 import {Genre} from '../../const';
-import {setActiveGenre} from '../../store/action';
+import {setActiveGenre} from '../../services/films/films-slice';
+import {getActiveGenre} from '../../services/films/selectors';
 
 type GenreItemProps = {
   genre: Genre;
 };
 
 export default function GenreItem({genre}: GenreItemProps): JSX.Element {
-  const activeGenre = useAppSelector((state) => state.activeGenre);
+  const activeGenre = useAppSelector(getActiveGenre);
   const dispatch = useAppDispatch();
 
   const handleGenreClick = () => {

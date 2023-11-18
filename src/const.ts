@@ -2,13 +2,21 @@ import {FilmCardType} from './types/films';
 
 export const MoreLikeFilmsCount = 4;
 export const ShowFilmsCount = 8;
-export const hoverFilmCardTime = 1000;
+export const MaxGenresCount = 9;
+export const HoverFilmCardTime = 1000;
 export const ShowErrorTimeout = 2000;
 export const AuthTokenName = 'wtw-token';
+
 export const CommentLength = {
   Min: 50,
   Max: 400,
 };
+
+export const NameSpace = {
+  Films: 'Films',
+  User: 'User',
+};
+
 export enum Genre {
   All = 'All Genres',
   Comedy = 'Comedy',
@@ -74,7 +82,7 @@ export enum AppRoute {
 }
 
 export enum FilmStatus {
-  Vied = 0,
+  Viewed = 0,
   ToView = 1,
 }
 

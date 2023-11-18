@@ -7,11 +7,12 @@ import PromoFilm from './promo-film';
 import {useState} from 'react';
 import {ShowFilmsCount} from '../../const';
 import {useFilmsByGenre} from '../../components/hooks/hooks';
+import {getPromoFilm} from '../../services/films/selectors';
 
 function MainPage(): JSX.Element {
   const [filmsCount, setFilmsCount] = useState(ShowFilmsCount);
   const films = useFilmsByGenre();
-  const promoFilm = useAppSelector((state) => state.promoFilm);
+  const promoFilm = useAppSelector(getPromoFilm);
 
   const handleShowMoreButtonClick = () =>
     setFilmsCount((prevState) => prevState + ShowFilmsCount);

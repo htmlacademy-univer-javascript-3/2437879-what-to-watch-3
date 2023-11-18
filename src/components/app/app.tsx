@@ -8,8 +8,33 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {useAppSelector, useAppDispatch} from '../hooks/hooks';
+import {hasError, checkDataLoading} from '../../services/films/selectors';
+import Spinner from '../spinner/spinner';
+import {useEffect} from 'react';
+import {getAuthorized} from '../../services/user/selectors';
+import {fetchMyList} from '../../services/api-actions';
 
 function App(): JSX.Element {
+  const hasAnyError = useAppSelector(hasError);
+  const isDataLoading = useAppSelector(checkDataLoading);
+  const dispatch = useAppDispatch();
+  const authorized = useAppSelector(getAuthorized);
+
+  useEffect(() => {
+    if (authorized) {
+      dispatch(fetchMyList());
+    }
+  }, [dispatch, authorized]);
+
+  if (isDataLoading) {
+    return <Spinner />;
+  }
+
+  if (hasAnyError) {
+    return <NotFoundPage />;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -23,10 +48,17 @@ function App(): JSX.Element {
         />
         <Route path={AppRoute.Film}>
           <Route index element={<MoviePage />} />
-          <Route path={AppRoute.AddReview} element={<AddReviewPage />} />
+          <Route
+            path={AppRoute.AddReview}
+            element={
+              <PrivateRoute>
+                <AddReviewPage />
+              </PrivateRoute>
+            }
+          />
         </Route>
         <Route path={AppRoute.Player} element={<PlayerPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

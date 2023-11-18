@@ -2,13 +2,18 @@ import {PromoFilmType} from '../../types/films';
 import {useAppSelector} from '../../components/hooks/hooks';
 import {Link} from 'react-router-dom';
 import UserBlock from './user-block';
+import MyListButton from '../../components/my-list-button/my-list-button';
+import {getAuthorized} from '../../services/user/selectors';
+import Logo from '../../components/logo/logo';
+import React from 'react';
 
 type PromoFilmProps = {
   promoFilm: PromoFilmType;
 }
 
-export default function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
-  const films = useAppSelector((state) => state.films);
+// eslint-disable-next-line react-refresh/only-export-components
+function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
+  const authorized = useAppSelector(getAuthorized);
 
   return (
     <section className="film-card">
@@ -19,13 +24,7 @@ export default function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
       <h1 className="visually-hidden">WTW</h1>
 
       <header className="page-header film-card__head">
-        <div className="logo">
-          <a className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
+        <Logo />
 
         <UserBlock />
       </header>
@@ -52,13 +51,7 @@ export default function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
                 </svg>
                 <span>Play</span>
               </Link>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-                <span className="film-card__count">{films.length}</span>
-              </button>
+              {authorized && <MyListButton filmCard={promoFilm} />}
             </div>
           </div>
         </div>
@@ -66,3 +59,6 @@ export default function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
     </section>
   );
 }
+
+// eslint-disable-next-line react-refresh/only-export-components
+export default React.memo(PromoFilm);

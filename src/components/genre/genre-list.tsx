@@ -1,20 +1,9 @@
-import {Genre} from '../../const';
-import {useAppDispatch, useAppSelector} from '../hooks/hooks';
-import {useEffect} from 'react';
-import {setGenres} from '../../store/action';
+import {useAppSelector} from '../hooks/hooks';
 import GenreItem from './genre-item';
+import {getGenres} from '../../services/films/selectors';
 
 export default function GenreList() {
-  const films = useAppSelector((state) => state.films);
-  const genres = useAppSelector((state) => state.genres);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const newGenres = new Set<Genre>([Genre.All]);
-    films.forEach((film) => newGenres.add(film.genre));
-
-    dispatch(setGenres(Array.from(newGenres).slice(0, 9)));
-  }, [dispatch, films]);
+  const genres = useAppSelector(getGenres);
 
   return (
     <ul className="catalog__genres-list">
