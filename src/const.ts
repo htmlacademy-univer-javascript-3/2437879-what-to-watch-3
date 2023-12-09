@@ -5,17 +5,17 @@ export const ShowFilmsCount = 8;
 export const MaxGenresCount = 9;
 export const HoverFilmCardTime = 1000;
 export const ShowErrorTimeout = 2000;
-export const AuthTokenName = 'wtw-token';
+export const AuthTokenName = 'what-to-watch-token';
 
 export const CommentLength = {
   Min: 50,
   Max: 400,
 };
 
-export const NameSpace = {
-  Films: 'Films',
-  User: 'User',
-};
+export enum NameSpace {
+  Films = 'Films',
+  User = 'User',
+}
 
 export enum Genre {
   All = 'All Genres',
@@ -30,7 +30,8 @@ export enum Genre {
   Thriller = 'Thriller',
   Fantasy = 'Fantasy',
   Action = 'Action',
-  Adventure = 'Adventure'
+  Adventure = 'Adventure',
+  New = 'New Genre'
 }
 
 export const PromoFilm = {

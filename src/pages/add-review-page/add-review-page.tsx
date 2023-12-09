@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
 import {fetchFilmAction} from '../../services/api-actions';
 import {getFilmCard} from '../../services/films/selectors';
 import Logo from '../../components/logo/logo';
+import {Helmet} from 'react-helmet-async';
 
 function AddReviewPage() {
   const {id} = useParams();
@@ -24,6 +25,9 @@ function AddReviewPage() {
 
   return (
     <section className="film-card film-card--full">
+      <Helmet>
+        <title>{filmCard.name} | Новый отзыв</title>
+      </Helmet>
       <div className="film-card__header">
         <div className="film-card__bg">
           <img src={filmCard.backgroundImage} alt={filmCard.name}/>

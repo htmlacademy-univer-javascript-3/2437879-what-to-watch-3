@@ -4,7 +4,6 @@ type PlayButtonProps = {
   onClick: () => void;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 function PlayButton({ onClick }: PlayButtonProps) {
   return (
     <button type="button" className="player__play" onClick={onClick}>
@@ -16,5 +15,4 @@ function PlayButton({ onClick }: PlayButtonProps) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default React.memo(PlayButton);

@@ -11,7 +11,6 @@ type PromoFilmProps = {
   promoFilm: PromoFilmType;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
   const authorized = useAppSelector(getAuthorized);
 
@@ -60,5 +59,4 @@ function PromoFilm({promoFilm}: PromoFilmProps): JSX.Element {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default React.memo(PromoFilm);

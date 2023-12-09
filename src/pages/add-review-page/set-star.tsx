@@ -15,6 +15,7 @@ export default function SetStar({ value, onChange }: SetStarProps) {
         name="rating"
         value={value}
         onChange={onChange}
+        data-testid={'star'}
       />
       <label className="rating__label" htmlFor={`star-${value}`}>
         Rating {value}

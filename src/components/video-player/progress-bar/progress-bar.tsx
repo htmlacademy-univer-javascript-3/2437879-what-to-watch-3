@@ -6,7 +6,6 @@ type PlayButtonProps = {
   currentTime: number;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 function ProgressBar({ duration, currentTime }: PlayButtonProps) {
   return (
     <div className="player__controls-row">
@@ -32,5 +31,4 @@ function ProgressBar({ duration, currentTime }: PlayButtonProps) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default React.memo(ProgressBar);

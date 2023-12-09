@@ -1,10 +1,10 @@
-import {Genre, MaxGenresCount} from '../../const';
+import {Genre, MaxGenresCount, NameSpace} from '../../const';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {fetchFilmAction, fetchFilmsAction, fetchMyList, fetchPromoFilmAction, sendComment, setFilmStatus} from '../api-actions';
 import {CommentType} from '../../types/users';
 import {FilmCardType, FilmType, PromoFilmType, FavoriteFilmType} from '../../types/films';
 
-type filmsSliceProps = {
+export type filmsSliceProps = {
   films: FilmType[];
   promoFilm: PromoFilmType | null;
   filmCard: FilmCardType | null;
@@ -41,7 +41,7 @@ const rejected = (state: filmsSliceProps) => {
 };
 
 export const filmsSlice = createSlice({
-  name: 'Films',
+  name: NameSpace.Films,
   initialState,
   reducers: {
     setActiveGenre: (state, action: PayloadAction<Genre>) => {

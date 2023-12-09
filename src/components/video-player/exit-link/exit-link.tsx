@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-// eslint-disable-next-line react-refresh/only-export-components
 function ExitLink(): JSX.Element {
   return (
     <Link
@@ -15,6 +14,5 @@ function ExitLink(): JSX.Element {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default React.memo(ExitLink);
 

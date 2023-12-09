@@ -1,9 +1,9 @@
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, NameSpace} from '../../const';
 import {createSlice} from '@reduxjs/toolkit';
 import {checkAuth, login, logOut} from '../api-actions';
 import {ImageUrl} from '../../types/users';
 
-type userSliceProps = {
+export type userSliceProps = {
   authorizationStatus: AuthorizationStatus;
   userImage: ImageUrl;
 };
@@ -14,7 +14,7 @@ const initialState: userSliceProps = {
 };
 
 export const userSlice = createSlice({
-  name: 'User',
+  name: NameSpace.User,
   initialState,
   reducers: {},
   extraReducers(builder) {

@@ -8,6 +8,7 @@ import PauseButton from '../../components/video-player/pause-button/pause-button
 import ExitLink from '../../components/video-player/exit-link/exit-link';
 import ProgressBar from '../../components/video-player/progress-bar/progress-bar';
 import FullScreenButton from '../../components/video-player/full-screen-button/full-screen-button';
+import {Helmet} from 'react-helmet-async';
 
 function PlayerPage() {
   const {id} = useParams();
@@ -97,6 +98,9 @@ function PlayerPage() {
 
   return (
     <div className="player">
+      <Helmet>
+        <title>{film.name} | Проигрыватель</title>
+      </Helmet>
       <video ref={playerRef} src={film.videoLink} className="player__video" poster={film.backgroundImage}></video>
 
       <ExitLink />

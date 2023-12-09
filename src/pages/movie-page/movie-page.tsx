@@ -10,6 +10,7 @@ import {getAuthorized} from '../../services/user/selectors';
 import {getFilmCard, getMoreLikeThis} from '../../services/films/selectors';
 import Logo from '../../components/logo/logo';
 import MyListButton from '../../components/my-list-button/my-list-button';
+import {Helmet} from 'react-helmet-async';
 
 function MoviePage() {
   const {id} = useParams();
@@ -32,6 +33,9 @@ function MoviePage() {
   return (
     <>
       <section className="film-card film-card--full">
+        <Helmet>
+          <title>{filmCard.name}</title>
+        </Helmet>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src={filmCard.backgroundImage} alt={filmCard.name}/>
