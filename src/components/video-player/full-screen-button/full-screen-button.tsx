@@ -4,7 +4,6 @@ type FullScreenButtonProps = {
   onClick: () => void;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 function FullScreenButton({onClick}: FullScreenButtonProps) {
   return (
     <button type="button" className="player__full-screen" onClick={onClick}>
@@ -16,6 +15,4 @@ function FullScreenButton({onClick}: FullScreenButtonProps) {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export default React.memo(FullScreenButton);
-

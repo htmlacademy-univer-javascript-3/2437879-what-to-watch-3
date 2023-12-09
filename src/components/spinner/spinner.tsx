@@ -2,7 +2,7 @@ import '../../../markup/css/spinner.css';
 
 export default function Spinner() {
   return (
-    <div className="spinner-container">
+    <div className="spinner-container" data-testid={'spinner'}>
       <svg
         width="100%"
         viewBox="0 0 276 276"

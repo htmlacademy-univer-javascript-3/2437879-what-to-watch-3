@@ -7,17 +7,17 @@ import PlayerPage from '../../pages/player-page/player-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../hooks/hooks';
-import {hasError, checkDataLoading} from '../../services/films/selectors';
+import {getIsDataLoading} from '../../services/films/selectors';
 import Spinner from '../spinner/spinner';
 import {useEffect} from 'react';
 import {getAuthorized} from '../../services/user/selectors';
 import {fetchMyList} from '../../services/api-actions';
+import {HelmetProvider} from 'react-helmet-async';
 
 function App(): JSX.Element {
-  const hasAnyError = useAppSelector(hasError);
-  const isDataLoading = useAppSelector(checkDataLoading);
+  const isDataLoading = useAppSelector(getIsDataLoading);
   const dispatch = useAppDispatch();
   const authorized = useAppSelector(getAuthorized);
 
@@ -25,18 +25,14 @@ function App(): JSX.Element {
     if (authorized) {
       dispatch(fetchMyList());
     }
-  }, [dispatch, authorized]);
+  }, [authorized, dispatch]);
 
   if (isDataLoading) {
     return <Spinner />;
   }
 
-  if (hasAnyError) {
-    return <NotFoundPage />;
-  }
-
   return (
-    <BrowserRouter>
+    <HelmetProvider>
       <Routes>
         <Route path={AppRoute.Main} element={<MainPage />} />
         <Route path={AppRoute.SignIn} element={<SignInPage />} />
@@ -46,21 +42,17 @@ function App(): JSX.Element {
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Film}>
-          <Route index element={<MoviePage />} />
-          <Route
-            path={AppRoute.AddReview}
-            element={
-              <PrivateRoute>
-                <AddReviewPage />
-              </PrivateRoute>
-            }
-          />
-        </Route>
         <Route path={AppRoute.Player} element={<PlayerPage />} />
+        <Route path={AppRoute.Film} element={<MoviePage />} />
+        <Route path={AppRoute.AddReview} element={
+          <PrivateRoute>
+            <AddReviewPage />
+          </PrivateRoute>
+        }
+        />
         <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>
-    </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

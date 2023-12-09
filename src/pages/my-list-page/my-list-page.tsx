@@ -5,12 +5,16 @@ import UserBlock from '../main-page/user-block';
 import {useAppSelector} from '../../components/hooks/hooks';
 import {getMyList} from '../../services/films/selectors';
 import Logo from '../../components/logo/logo';
+import {Helmet} from 'react-helmet-async';
 
 function MyListPage(): JSX.Element {
   const films = useAppSelector(getMyList);
 
   return (
     <div className="user-page">
+      <Helmet>
+        <title>Мои фильмы</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo />
 

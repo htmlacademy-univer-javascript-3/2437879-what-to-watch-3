@@ -8,6 +8,7 @@ import {useState} from 'react';
 import {ShowFilmsCount} from '../../const';
 import {useFilmsByGenre} from '../../components/hooks/hooks';
 import {getPromoFilm} from '../../services/films/selectors';
+import {Helmet} from 'react-helmet-async';
 
 function MainPage(): JSX.Element {
   const [filmsCount, setFilmsCount] = useState(ShowFilmsCount);
@@ -19,6 +20,9 @@ function MainPage(): JSX.Element {
 
   return (
     <>
+      <Helmet>
+        <title>Главная</title>
+      </Helmet>
       {promoFilm && <PromoFilm promoFilm={promoFilm} />}
 
       <div className="page-content">
@@ -35,9 +39,7 @@ function MainPage(): JSX.Element {
           )}
 
           <div className="catalog__more">
-            {filmsCount < films.length && (
-              <ShowMoreButton onClick={handleShowMoreButtonClick}/>
-            )}
+            {filmsCount < films.length && <ShowMoreButton onClick={handleShowMoreButtonClick} />}
           </div>
 
         </section>

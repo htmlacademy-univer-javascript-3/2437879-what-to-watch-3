@@ -1,25 +1,28 @@
-import {useAppDispatch} from '../../components/hooks/hooks';
-import {fetchFilmsAction} from '../../services/api-actions';
-
+import {AppRoute} from '../../const';
+import {useNavigate} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 
 function NotFoundPage(): JSX.Element {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleTryAgain = () => {
-    dispatch(fetchFilmsAction());
+    navigate(AppRoute.Main);
   };
 
   return (
     <section className="user-page">
+      <Helmet>
+        <title>404</title>
+      </Helmet>
       <p className="error__text">
-        Произошла ошибка. Пожалуйста, попробуйте ещё раз
+        404. Page not found
       </p>
       <button
         onClick={handleTryAgain}
         className="replay replay--error"
         type="button"
       >
-        Попробовать снова
+        Back to main page.
       </button>
     </section>
   );

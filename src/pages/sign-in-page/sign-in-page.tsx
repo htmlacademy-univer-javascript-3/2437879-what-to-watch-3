@@ -6,6 +6,8 @@ import {login} from '../../services/api-actions';
 import {useNavigate} from 'react-router-dom';
 import {UserFormValues} from '../../types/users';
 import Logo from '../../components/logo/logo';
+import {toast} from 'react-toastify';
+import {Helmet} from 'react-helmet-async';
 
 function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -16,20 +18,16 @@ function SignInPage(): JSX.Element {
     password: '',
   });
 
-  const [, setIsValid] = useState(false);
+  const validateEmail = (newFormData: UserFormValues) =>
+    Boolean(newFormData.email.match(/[a-zA-Z0-9.]+@[a-zA-Z]+[.][a-zA-Z]{2,4}$/));
 
-  const handleValidate = (newFormData: UserFormValues) => {
-    const validated =
-      newFormData.email.match(/[a-zA-Z0-9.]+@[a-zA-Z]+[.][a-zA-Z]{2,4}$/) &&
-      newFormData.password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/);
-    setIsValid(!!validated);
-  };
+  const validatePassword = (newFormData: UserFormValues) =>
+    Boolean(newFormData.password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/));
 
   const handleFieldChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
-    const { name, value } = evt.target;
+    const {name, value} = evt.target;
     setFormData(() => {
       const newFormData: UserFormValues = { ...formData, [name]: value };
-      handleValidate(newFormData);
 
       return newFormData;
     });
@@ -37,12 +35,25 @@ function SignInPage(): JSX.Element {
 
   const handleSubmit: FormEventHandler<HTMLButtonElement> = (evt) => {
     evt.preventDefault();
+
+    if (!validateEmail(formData)) {
+      toast.warn('Please enter a valid email address');
+      return;
+    }
+    if (!validatePassword(formData)) {
+      toast.warn('Please enter a valid password');
+      return;
+    }
+
     dispatch(login(formData));
     navigate(AppRoute.Main);
   };
 
   return (
     <div className="user-page">
+      <Helmet>
+        <title>Вход</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo />
 
