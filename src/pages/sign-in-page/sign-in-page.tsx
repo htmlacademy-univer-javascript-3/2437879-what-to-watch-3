@@ -1,52 +1,29 @@
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
-import {ChangeEventHandler, FormEventHandler, useState} from 'react';
+import {FormEventHandler, useRef} from 'react';
 import {useAppDispatch} from '../../components/hooks/hooks';
 import {login} from '../../services/api-actions';
 import {useNavigate} from 'react-router-dom';
-import {UserFormValues} from '../../types/users';
 import Logo from '../../components/logo/logo';
-import {toast} from 'react-toastify';
 import {Helmet} from 'react-helmet-async';
 
 function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState<UserFormValues>({
-    email: '',
-    password: '',
-  });
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
-  const validateEmail = (newFormData: UserFormValues) =>
-    Boolean(newFormData.email.match(/[a-zA-Z0-9.]+@[a-zA-Z]+[.][a-zA-Z]{2,4}$/));
-
-  const validatePassword = (newFormData: UserFormValues) =>
-    Boolean(newFormData.password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/));
-
-  const handleFieldChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
-    const {name, value} = evt.target;
-    setFormData(() => {
-      const newFormData: UserFormValues = { ...formData, [name]: value };
-
-      return newFormData;
-    });
-  };
-
-  const handleSubmit: FormEventHandler<HTMLButtonElement> = (evt) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
 
-    if (!validateEmail(formData)) {
-      toast.warn('Please enter a valid email address');
-      return;
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      dispatch(login({
+        email: loginRef.current.value,
+        password: passwordRef.current.value
+      }));
+      navigate(AppRoute.Main);
     }
-    if (!validatePassword(formData)) {
-      toast.warn('Please enter a valid password');
-      return;
-    }
-
-    dispatch(login(formData));
-    navigate(AppRoute.Main);
   };
 
   return (
@@ -61,23 +38,23 @@ function SignInPage(): JSX.Element {
       </header>
 
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form">
+        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-                id="user-email" onChange={handleFieldChange} required
+              <input ref={loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email"
+                id="user-email"
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password"
-                id="user-password" onChange={handleFieldChange} required
+              <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password"
+                id="user-password"
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
           <div className="sign-in__submit">
-            <button className="sign-in__btn" type="submit" onSubmit={handleSubmit}>Sign in</button>
+            <button className="sign-in__btn" type="submit">Sign in</button>
           </div>
         </form>
       </div>
