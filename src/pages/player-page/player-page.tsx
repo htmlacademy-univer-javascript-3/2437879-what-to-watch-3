@@ -18,13 +18,10 @@ function PlayerPage() {
   const playerRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [, setSeconds] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
 
   const handleDataLoaded = () => {
     setIsLoaded(true);
-    setInterval(() => {
-      setSeconds((prevState) => prevState + 1);
-    }, 200);
   };
 
   const handlePlayPauseClick = useCallback(() => {
@@ -59,6 +56,10 @@ function PlayerPage() {
     }
 
     return playerElement.currentTime;
+  };
+
+  const videoPlaying = () => {
+    setCurrentTime(getFilmCurrentTime());
   };
 
   useEffect(() => {
@@ -101,12 +102,12 @@ function PlayerPage() {
       <Helmet>
         <title>{film.name} | Проигрыватель</title>
       </Helmet>
-      <video ref={playerRef} src={film.videoLink} className="player__video" poster={film.backgroundImage}></video>
+      <video ref={playerRef} src={film.videoLink} className="player__video" poster={film.backgroundImage} onTimeUpdate={videoPlaying}></video>
 
       <ExitLink />
 
       <div className="player__controls">
-        <ProgressBar duration={getFilmDuration()} currentTime={getFilmCurrentTime()} />
+        <ProgressBar duration={getFilmDuration()} currentTime={currentTime} />
 
         <div className="player__controls-row">
           {isPlaying ? (

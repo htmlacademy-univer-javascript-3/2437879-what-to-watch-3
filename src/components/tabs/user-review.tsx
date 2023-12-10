@@ -7,7 +7,7 @@ type UserReviewProps = {
 
 export default function UserReview({comment}: UserReviewProps): JSX.Element {
   return (
-    <div className="review">
+    <div className="review" data-testid={'review'}>
       <blockquote className="review__quote">
         <p className="review__text">{comment.comment}</p>
         <footer className="review__details">

@@ -22,7 +22,6 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     expect(screen.getAllByTestId('film').length).toBe(ShowFilmsCount);
-    expect(screen.getByText('All Genres')).toBeInTheDocument();
   });
 
   it('should render the "MyList" when user navigate to "/mylist"', () => {

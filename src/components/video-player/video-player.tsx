@@ -49,6 +49,7 @@ export default function VideoPlayer({promoFilm, activeFilm, isMuted}: VideoPlaye
       ref={videoRef}
       src={promoFilm.previewVideoLink}
       muted={isMuted}
+      data-testid={'video-player'}
     >
     </video>
   );

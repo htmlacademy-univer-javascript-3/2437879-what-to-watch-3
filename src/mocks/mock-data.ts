@@ -13,17 +13,19 @@ const getRandomNumber = (min: number, max: number) =>
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
+export const makeFakeFilm = () =>
+  ({
+    id: datatype.uuid(),
+    name: name.firstName(),
+    previewImage: image.imageUrl(),
+    previewVideoLink: image.imageUrl(),
+    genre: music.genre(),
+  } as FilmType);
+
 export const makeFakeFilmsList = () =>
-  new Array(getRandomNumber(9, 12)).fill(null).map(
-    () =>
-      ({
-        id: datatype.uuid(),
-        name: name.firstName(),
-        previewImage: image.imageUrl(),
-        previewVideoLink: image.imageUrl(),
-        genre: music.genre(),
-      } as FilmType)
-  );
+  new Array(getRandomNumber(9, 12))
+    .fill(null)
+    .map(() => makeFakeFilm());
 
 export const makeFakePromoFilm = () =>
   ({
@@ -32,6 +34,7 @@ export const makeFakePromoFilm = () =>
     posterImage: image.imageUrl(),
     backgroundImage: image.imageUrl(),
     videoLink: image.imageUrl(),
+    description: lorem.sentence(30),
     genre: music.genre(),
     released: date.recent().getFullYear(),
     isFavorite: datatype.boolean(),
@@ -56,17 +59,19 @@ export const makeFakeFilmCard = () =>
     isFavorite: datatype.boolean(),
   } as FilmCardType);
 
+export const makeFakeComment = () =>
+  ({
+    id: datatype.uuid(),
+    date: date.recent().toDateString(),
+    user: name.firstName(),
+    comment: lorem.text(),
+    rating: getRandomNumber(0, 10),
+  } as CommentType);
+
 export const makeFakeComments = () =>
-  new Array(getRandomNumber(1, 6)).fill(null).map(
-    () =>
-      ({
-        id: datatype.uuid(),
-        date: date.recent().toDateString(),
-        user: name.firstName(),
-        comment: lorem.text(),
-        rating: getRandomNumber(0, 10),
-      } as CommentType)
-  );
+  new Array(getRandomNumber(1, 6))
+    .fill(null)
+    .map(() => makeFakeComment());
 
 export const makeFakeUser = () => ({
   name: name.firstName(),

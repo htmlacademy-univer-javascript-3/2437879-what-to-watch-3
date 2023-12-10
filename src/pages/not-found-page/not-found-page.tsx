@@ -21,6 +21,7 @@ function NotFoundPage(): JSX.Element {
         onClick={handleTryAgain}
         className="replay replay--error"
         type="button"
+        data-testid={'back'}
       >
         Back to main page.
       </button>
