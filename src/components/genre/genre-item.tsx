@@ -1,26 +1,17 @@
-import {useAppSelector, useAppDispatch} from '../hooks/hooks';
 import {Genre} from '../../const';
-import {setActiveGenre} from '../../services/films/films-slice';
-import {getActiveGenre} from '../../services/films/selectors';
+import cn from 'classnames';
 
 type GenreItemProps = {
   genre: Genre;
+  isActiveGenre: boolean;
+  onClick: (genre: Genre) => void;
 };
 
-export default function GenreItem({genre}: GenreItemProps): JSX.Element {
-  const activeGenre = useAppSelector(getActiveGenre);
-  const dispatch = useAppDispatch();
-
-  const handleGenreClick = () => {
-    dispatch(setActiveGenre(genre));
-  };
-
+export default function GenreItem({genre, isActiveGenre, onClick}: GenreItemProps): JSX.Element {
   return (
     <li
-      className={`catalog__genres-item ${
-        genre === activeGenre ? 'catalog__genres-item--active' : ''
-      }`}
-      onClick={handleGenreClick}
+      className={cn('catalog__genres-item', isActiveGenre && 'catalog__genres-item--active')}
+      onClick={() => onClick(genre)}
     >
       <a className="catalog__genres-link" id={genre}>
         {genre}

@@ -48,6 +48,7 @@ export function AddReviewForm({id}: AddReviewFormProps): JSX.Element {
             id="review-text"
             placeholder="Review text"
             onChange={handleCommentChange}
+            data-testid={'comment'}
           >
           </textarea>
           <div className="add-review__submit">
