@@ -2,7 +2,7 @@ import {AppRoute} from '../../const';
 import {useNavigate} from 'react-router-dom';
 import {Helmet} from 'react-helmet-async';
 
-function NotFoundPage(): JSX.Element {
+export default function NotFoundPage(): JSX.Element {
   const navigate = useNavigate();
 
   const handleTryAgain = () => {
@@ -28,5 +28,3 @@ function NotFoundPage(): JSX.Element {
     </section>
   );
 }
-
-export default NotFoundPage;

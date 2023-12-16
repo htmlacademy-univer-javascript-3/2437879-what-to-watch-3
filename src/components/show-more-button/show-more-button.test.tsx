@@ -12,10 +12,11 @@ describe('Component: ShowMoreButton', () => {
     expect(screen.getByText('Show more')).toBeInTheDocument();
   });
 
-  it('should call OnClick function when user clicks ', async () => {
+  it('should call OnClick function when user-slice clicks ', async () => {
     const mockOnClick = vi.fn();
 
     render(<ShowMoreButton onClick={mockOnClick} />);
+
     await userEvent.click(screen.getByText('Show more'));
 
     expect(mockOnClick).toBeCalledTimes(1);

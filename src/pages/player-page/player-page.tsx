@@ -1,8 +1,8 @@
 import {useAppSelector, useAppDispatch} from '../../components/hooks/hooks';
-import {getFilmCard} from '../../services/films/selectors';
+import {getFilmCard} from '../../services/films-slice/selectors';
 import {useParams} from 'react-router-dom';
 import {useEffect, useCallback, useRef, useState} from 'react';
-import {fetchFilmAction} from '../../services/api-actions';
+import {fetchFilmDataAction} from '../../services/api-actions';
 import PlayButton from '../../components/video-player/play-button/play-button';
 import PauseButton from '../../components/video-player/pause-button/pause-button';
 import ExitLink from '../../components/video-player/exit-link/exit-link';
@@ -10,7 +10,7 @@ import ProgressBar from '../../components/video-player/progress-bar/progress-bar
 import FullScreenButton from '../../components/video-player/full-screen-button/full-screen-button';
 import {Helmet} from 'react-helmet-async';
 
-function PlayerPage() {
+export default function PlayerPage() {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const film = useAppSelector(getFilmCard);
@@ -78,7 +78,7 @@ function PlayerPage() {
 
   useEffect(() => {
     if (id && id !== film?.id) {
-      dispatch(fetchFilmAction(id));
+      dispatch(fetchFilmDataAction(id));
     }
 
     const playerElement = playerRef.current;
@@ -122,5 +122,3 @@ function PlayerPage() {
     </div>
   );
 }
-
-export default PlayerPage;

@@ -14,6 +14,7 @@ describe('Component: GenreItem', () => {
       <GenreItem genre={mockGenre} isActiveGenre={false} onClick={mockOnClick} />,
       makeFakeStore()
     );
+
     render(withStoreComponent);
 
     expect(screen.getByText(mockGenre)).toBeInTheDocument();
@@ -28,6 +29,7 @@ describe('Component: GenreItem', () => {
     );
 
     render(withStoreComponent);
+
     await userEvent.click(screen.getByRole('listitem'));
 
     expect(mockOnClick).toHaveBeenCalledWith(mockGenre);

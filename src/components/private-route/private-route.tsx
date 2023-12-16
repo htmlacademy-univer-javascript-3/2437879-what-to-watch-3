@@ -1,7 +1,7 @@
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../hooks/hooks';
 import {AppRoute} from '../../const';
-import {getAuthorized} from '../../services/user/selectors';
+import {getAuthorized} from '../../services/user-slice/selectors';
 
 type PrivateRouteProps = {
   children: JSX.Element;

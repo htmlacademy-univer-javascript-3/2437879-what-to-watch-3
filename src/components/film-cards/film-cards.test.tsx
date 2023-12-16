@@ -5,15 +5,15 @@ import {render, screen} from '@testing-library/react';
 
 describe('Component: FilmCards', () => {
   it('should render correct', () => {
-    const mockFilms = makeFakeFilmsList();
-    const filmsCount = 5;
+    const MOCK_FILMS = makeFakeFilmsList();
+    const FILMS_COUNT = 5;
     const componentWithHistory = withHistory(
-      <FilmCards films={mockFilms} filmsCount={filmsCount} />
+      <FilmCards films={MOCK_FILMS} filmsCount={FILMS_COUNT} />
     );
 
     render(componentWithHistory);
 
-    expect(screen.getByText(mockFilms[0].name)).toBeInTheDocument();
+    expect(screen.getByText(MOCK_FILMS[0].name)).toBeInTheDocument();
     expect(screen.getAllByTestId('film')).toHaveLength(5);
   });
 });

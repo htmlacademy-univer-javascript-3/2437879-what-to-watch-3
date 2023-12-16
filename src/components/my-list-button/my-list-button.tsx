@@ -1,8 +1,8 @@
 import {FilmCardType, PromoFilmType} from '../../types/films';
-import {setFilmStatus} from '../../services/api-actions';
+import {setFilmStatusAction} from '../../services/api-actions';
 import {FilmStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
-import {getMyList} from '../../services/films/selectors';
+import {getMyList} from '../../services/films-slice/selectors';
 
 type MyListButtonProps = {
   filmCard: FilmCardType | PromoFilmType;
@@ -14,7 +14,7 @@ export default function MyListButton({filmCard}: MyListButtonProps) {
 
   const handleAddButtonClick = () => {
     dispatch(
-      setFilmStatus({
+      setFilmStatusAction({
         id: filmCard.id,
         filmStatus: filmCard.isFavorite ? FilmStatus.Viewed : FilmStatus.ToView,
       })

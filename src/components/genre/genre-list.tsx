@@ -1,7 +1,7 @@
 import {useAppSelector, useAppDispatch} from '../hooks/hooks';
 import GenreItem from './genre-item';
-import {getGenres, getActiveGenre} from '../../services/films/selectors';
-import {setActiveGenre} from '../../services/films/films-slice';
+import {getGenres, getActiveGenre} from '../../services/films-slice/selectors';
+import {setActiveGenre} from '../../services/films-slice/films-slice';
 import {Genre} from '../../const';
 
 export default function GenreList() {

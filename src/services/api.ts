@@ -17,14 +17,13 @@ const StatusCodeMapping: Record<number, boolean> = {
 };
 
 const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
-
-const BaseUrl = 'https://13.design.pages.academy/wtw';
-const RequestTimeout = 1000;
+const BASE_URL = 'https://13.design.pages.academy/wtw';
+const REQUEST_TIMEOUT = 1000;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: BaseUrl,
-    timeout: RequestTimeout,
+    baseURL: BASE_URL,
+    timeout: REQUEST_TIMEOUT,
   });
 
   api.interceptors.request.use((config: AxiosRequestConfig) => {

@@ -1,15 +1,15 @@
-import { ReactElement, ReactNode } from 'react';
-import { createMemoryHistory, MemoryHistory } from 'history';
+import {ReactElement, ReactNode} from 'react';
+import {createMemoryHistory, MemoryHistory} from 'history';
 import HistoryRouter from '../components/history-router/history-router.tsx';
-import { HelmetProvider } from 'react-helmet-async';
+import {HelmetProvider} from 'react-helmet-async';
 import MockAdapter from 'axios-mock-adapter';
-import { configureMockStore, MockStore } from '@jedmao/redux-mock-store';
+import {configureMockStore, MockStore} from '@jedmao/redux-mock-store';
 import {State} from '../store/types';
-import { createAPI } from '../services/api.ts';
+import {createAPI} from '../services/api.ts';
 import thunk from 'redux-thunk';
-import { Action } from 'redux';
-import { AppThunkDispatch } from './mock-data.ts';
-import { Provider } from 'react-redux';
+import {Action} from 'redux';
+import {AppThunkDispatch} from './mock-data.ts';
+import {Provider} from 'react-redux';
 
 export function withHistory(component: ReactNode, history?: MemoryHistory) {
   const memoryHistory = history ?? createMemoryHistory();

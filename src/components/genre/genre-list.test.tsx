@@ -4,7 +4,7 @@ import {withStore} from '../../mocks/mock-components.tsx';
 import {makeFakeStore} from '../../mocks/mock-data.ts';
 import GenreList from './genre-list';
 import {NameSpace} from '../../const.ts';
-import {filmsSliceProps} from '../../services/films/films-slice';
+import {filmsSliceProps} from '../../services/films-slice/films-slice';
 
 describe('Component: GenreList', () => {
   it('should render correct', () => {

@@ -1,15 +1,15 @@
-import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
-import {logOut} from '../../services/api-actions';
-import {getAuthorized, getUserImage} from '../../services/user/selectors';
+import {logoutAction} from '../../services/api-actions';
+import {getAuthorized, getUserImage} from '../../services/user-slice/selectors';
 
 export default function UserBlock(): JSX.Element {
   const dispatch = useAppDispatch();
   const authorized = useAppSelector(getAuthorized);
   const userImage = useAppSelector(getUserImage);
   const handleSignOutClick = () => {
-    dispatch(logOut());
+    dispatch(logoutAction());
   };
 
   if (!authorized) {

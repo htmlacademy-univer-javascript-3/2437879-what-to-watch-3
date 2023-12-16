@@ -1,10 +1,10 @@
-import { describe } from 'vitest';
-import { makeFakeFilmCard, makeFakeStore } from '../../mocks/mock-data.ts';
-import { withStore } from '../../mocks/mock-components.tsx';
+import {describe} from 'vitest';
+import {makeFakeFilmCard, makeFakeStore} from '../../mocks/mock-data.ts';
+import {withStore} from '../../mocks/mock-components.tsx';
 import MyListButton from './my-list-button.tsx';
-import { render, screen } from '@testing-library/react';
-import { NameSpace } from '../../const.ts';
-import {filmsSliceProps} from '../../services/films/films-slice';
+import {render, screen} from '@testing-library/react';
+import {NameSpace} from '../../const.ts';
+import {filmsSliceProps} from '../../services/films-slice/films-slice';
 
 describe('Component: MyListButton', () => {
   it('should render correct', () => {

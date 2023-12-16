@@ -6,7 +6,7 @@ import { withHistory, withStore } from '../../mocks/mock-components.tsx';
 describe('Component: ReviewForm', () => {
   it('should render correctly', () => {
     const id = 'id';
-    const { withStoreComponent } = withStore(<AddReviewForm id={id} />, {});
+    const {withStoreComponent} = withStore(<AddReviewForm id={id} />, {});
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
@@ -16,13 +16,14 @@ describe('Component: ReviewForm', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  it('should render correctly when user enter login and password', async () => {
+  it('should render correctly when user-slice enter login and password', async () => {
     const expectedReviewValue = 'review';
     const id = 'id';
-    const { withStoreComponent } = withStore(<AddReviewForm id={id} />, {});
+    const {withStoreComponent} = withStore(<AddReviewForm id={id} />, {});
     const preparedComponent = withHistory(withStoreComponent);
 
     render(preparedComponent);
+
     await userEvent.type(screen.getByTestId('comment'), expectedReviewValue);
     await userEvent.click(screen.getAllByTestId('star')[3]);
 

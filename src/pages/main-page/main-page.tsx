@@ -1,22 +1,22 @@
-import {FilmCards} from './film-cards';
+import {FilmCards} from '../../components/film-cards/film-cards';
 import GenreList from '../../components/genre/genre-list';
 import {useAppSelector} from '../../components/hooks/hooks';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../../components/spinner/spinner';
-import PromoFilm from './promo-film';
+import PromoFilm from '../../components/promo-film/promo-film';
 import {useState} from 'react';
-import {ShowFilmsCount} from '../../const';
+import {SHOW_FILMS_COUNT} from '../../const';
 import {useFilmsByGenre} from '../../components/hooks/hooks';
-import {getPromoFilm} from '../../services/films/selectors';
+import {getPromoFilm} from '../../services/films-slice/selectors';
 import {Helmet} from 'react-helmet-async';
 
 function MainPage(): JSX.Element {
-  const [filmsCount, setFilmsCount] = useState(ShowFilmsCount);
+  const [filmsCount, setFilmsCount] = useState(SHOW_FILMS_COUNT);
   const films = useFilmsByGenre();
   const promoFilm = useAppSelector(getPromoFilm);
 
   const handleShowMoreButtonClick = () =>
-    setFilmsCount((prevState) => prevState + ShowFilmsCount);
+    setFilmsCount((prevState) => prevState + SHOW_FILMS_COUNT);
 
   return (
     <>

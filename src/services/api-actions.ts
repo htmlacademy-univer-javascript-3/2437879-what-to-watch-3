@@ -3,7 +3,7 @@ import {AxiosInstance} from 'axios';
 import {ApiRoute, AppRoute, FilmStatus} from '../const';
 import {FilmCardType, FilmType, PromoFilmType} from '../types/films';
 import {AppDispatch, State} from '../store/types';
-import {AuthInfo, CommentType, ImageUrl, UserFormValues} from '../types/users';
+import {AuthInfoType, CommentType, ImageUrl, UserFormValuesType} from '../types/users';
 import {removeToken, saveToken} from './token';
 import {redirectToRoute} from './action';
 
@@ -15,7 +15,7 @@ export const fetchFilmsAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchFilms', async (_arg, { extra: api }) => {
+>('data/fetchFilms', async (_arg, {extra: api}) => {
   const {data} = await api.get<FilmType[]>(ApiRoute.Films());
   return data;
 });
@@ -28,12 +28,12 @@ export const fetchPromoFilmAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchPromoFilm', async (_arg, { extra: api }) => {
+>('data/fetchPromoFilm', async (_arg, {extra: api}) => {
   const {data} = await api.get<PromoFilmType>(ApiRoute.Promo());
   return data;
 });
 
-export const fetchFilmAction = createAsyncThunk<
+export const fetchFilmDataAction = createAsyncThunk<
   {
     filmCard: FilmCardType;
     comments: CommentType[];
@@ -45,8 +45,8 @@ export const fetchFilmAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchFilmData', async (id, { extra: api }) => {
-  const [{ data: filmCard }, { data: comments }, { data: moreLikeThis }] =
+>('data/fetchFilmData', async (id, {extra: api}) => {
+  const [{data: filmCard}, {data: comments}, {data: moreLikeThis}] =
     await Promise.all([
       api.get<FilmCardType>(ApiRoute.Film(id)),
       api.get<CommentType[]>(ApiRoute.Comments(id)),
@@ -55,7 +55,7 @@ export const fetchFilmAction = createAsyncThunk<
   return {filmCard, comments, moreLikeThis};
 });
 
-export const sendComment = createAsyncThunk<
+export const sendCommentAction = createAsyncThunk<
   CommentType,
   {
     id: string;
@@ -67,7 +67,7 @@ export const sendComment = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/sendComment', async ({ id, rating, comment }, { extra: api }) => {
+>('data/sendComment', async ({id, rating, comment}, {extra: api}) => {
   const {data} = await api.post<CommentType>(ApiRoute.Comments(id), {
     rating: rating,
     comment: comment,
@@ -75,7 +75,7 @@ export const sendComment = createAsyncThunk<
   return data;
 });
 
-export const fetchMyList = createAsyncThunk<
+export const fetchMyListAction = createAsyncThunk<
   FilmType[],
   undefined,
   {
@@ -83,12 +83,12 @@ export const fetchMyList = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/fetchMyList', async (_arg, { extra: api }) => {
+>('data/fetchMyList', async (_arg, {extra: api}) => {
   const {data} = await api.get<FilmType[]>(ApiRoute.Favorite());
   return data;
 });
 
-export const setFilmStatus = createAsyncThunk<
+export const setFilmStatusAction = createAsyncThunk<
     FilmCardType,
   {
     id: string;
@@ -99,41 +99,41 @@ export const setFilmStatus = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('data/setFilmStatus', async ({ id, filmStatus }, { extra: api }) => {
+>('data/setFilmStatus', async ({id, filmStatus}, {extra: api}) => {
   const {data} = await api.post<FilmCardType>(
     ApiRoute.SetFilmStatus(id, filmStatus),
   );
   return data;
 });
 
-export const login = createAsyncThunk<
+export const loginAction = createAsyncThunk<
   ImageUrl,
-  UserFormValues,
+  UserFormValuesType,
   {
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
   }
->('user/login', async (form, { dispatch, extra: api }) => {
-  const {data} = await api.post<AuthInfo>(ApiRoute.Login(), form);
+>('user-slice/login', async (form, {dispatch, extra: api}) => {
+  const {data} = await api.post<AuthInfoType>(ApiRoute.Login(), form);
   saveToken(data.token);
   dispatch(redirectToRoute(AppRoute.Main));
   return data.avatarUrl;
 });
 
-export const logOut = createAsyncThunk<
+export const logoutAction = createAsyncThunk<
   void,
   undefined,
   {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-}>('user/logout',async (_arg, { extra: api }) => {
+}>('user-slice/logout',async (_arg, {extra: api}) => {
   await api.delete(ApiRoute.Logout());
   removeToken();
 });
 
-export const checkAuth = createAsyncThunk<
+export const checkAuthAction = createAsyncThunk<
   ImageUrl,
   undefined,
   {
@@ -141,7 +141,7 @@ export const checkAuth = createAsyncThunk<
   state: State;
   extra: AxiosInstance;
 }
->('user/checkAuth', async (_arg, { extra: api }) => {
-  const {data} = await api.get<AuthInfo>(ApiRoute.Login());
+>('user-slice/checkAuth', async (_arg, {extra: api}) => {
+  const {data} = await api.get<AuthInfoType>(ApiRoute.Login());
   return data.avatarUrl;
 });

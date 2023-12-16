@@ -1,6 +1,6 @@
-import {Genre, MaxGenresCount, NameSpace} from '../../const';
+import {Genre, MAX_GENRES_COUNT, NameSpace} from '../../const';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {fetchFilmAction, fetchFilmsAction, fetchMyList, fetchPromoFilmAction, sendComment, setFilmStatus} from '../api-actions';
+import {fetchFilmDataAction, fetchFilmsAction, fetchMyListAction, fetchPromoFilmAction, sendCommentAction, setFilmStatusAction} from '../api-actions';
 import {CommentType} from '../../types/users';
 import {FilmCardType, FilmType, PromoFilmType, FavoriteFilmType} from '../../types/films';
 
@@ -53,9 +53,9 @@ export const filmsSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchFilmAction.pending, pending)
-      .addCase(fetchFilmAction.rejected, rejected)
-      .addCase(fetchFilmAction.fulfilled, (state, action) => {
+      .addCase(fetchFilmDataAction.pending, pending)
+      .addCase(fetchFilmDataAction.rejected, rejected)
+      .addCase(fetchFilmDataAction.fulfilled, (state, action) => {
         state.filmCard = action.payload.filmCard;
         state.comments = action.payload.comments;
         state.moreLikeThis = action.payload.moreLikeThis;
@@ -70,7 +70,7 @@ export const filmsSlice = createSlice({
 
         const newGenres = new Set<Genre>([Genre.All]);
         action.payload.forEach((film) => newGenres.add(film.genre));
-        state.genres = Array.from(newGenres).slice(0, MaxGenresCount);
+        state.genres = Array.from(newGenres).slice(0, MAX_GENRES_COUNT);
       })
 
       .addCase(fetchPromoFilmAction.pending, pending)
@@ -80,22 +80,22 @@ export const filmsSlice = createSlice({
         state.promoFilm = action.payload;
       })
 
-      .addCase(fetchMyList.pending, pending)
-      .addCase(fetchMyList.rejected, rejected)
-      .addCase(fetchMyList.fulfilled, (state, action) => {
+      .addCase(fetchMyListAction.pending, pending)
+      .addCase(fetchMyListAction.rejected, rejected)
+      .addCase(fetchMyListAction.fulfilled, (state, action) => {
         state.isDataLoading = false;
         state.myList = action.payload;
       })
 
-      .addCase(sendComment.pending, pending)
-      .addCase(sendComment.rejected, rejected)
-      .addCase(sendComment.fulfilled, (state, action) => {
+      .addCase(sendCommentAction.pending, pending)
+      .addCase(sendCommentAction.rejected, rejected)
+      .addCase(sendCommentAction.fulfilled, (state, action) => {
         state.isDataLoading = false;
         state.comments = [...state.comments, action.payload];
       })
 
-      .addCase(setFilmStatus.rejected, rejected)
-      .addCase(setFilmStatus.fulfilled, (state, action) => {
+      .addCase(setFilmStatusAction.rejected, rejected)
+      .addCase(setFilmStatusAction.fulfilled, (state, action) => {
         state.isDataLoading = false;
         if (state.promoFilm?.id === action.payload.id) {
           state.promoFilm = action.payload;

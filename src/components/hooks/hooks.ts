@@ -1,7 +1,7 @@
 import {AppDispatch, State} from '../../store/types';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 import {Genre} from '../../const';
-import {getActiveGenre, getFilms} from '../../services/films/selectors';
+import {getActiveGenre, getFilms} from '../../services/films-slice/selectors';
 
 export const useAppDispatch = () =>
   useDispatch<AppDispatch>();

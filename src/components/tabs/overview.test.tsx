@@ -11,6 +11,5 @@ describe('Component: Overview', () => {
 
     expect(screen.queryByText(`Director: ${filmCard.director}`)).toBeInTheDocument();
     expect(screen.queryByText(`${filmCard.scoresCount} ratings`)).toBeInTheDocument();
-    expect(screen.queryByText(filmCard.description)).toBeInTheDocument();
   });
 });

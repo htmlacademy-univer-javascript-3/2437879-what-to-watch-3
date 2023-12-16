@@ -1,13 +1,13 @@
 import {Grade} from './const';
 
-const getFormattedTime = (time: number) => {
+export const getFormattedTime = (time: number) => {
   const hours = Math.floor(time / 60);
   const minutes = time % 60;
 
   return `${hours}h ${minutes}m`;
 };
 
-const getTimeLeft = (timeLeft: number) => {
+export const getTimeLeft = (timeLeft: number) => {
   const hours = Math.floor(timeLeft / 60 / 60);
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = Math.floor(timeLeft % 60);
@@ -20,14 +20,14 @@ const getTimeLeft = (timeLeft: number) => {
 };
 
 
-const getFormattedDate = (date: string): string =>
+export const getFormattedDate = (date: string): string =>
   new Date(date).toLocaleString('en-US', {
     month: 'long',
     day: '2-digit',
     year: 'numeric',
   });
 
-const getFilmGrade = (rating: number): Grade => {
+export const getFilmGrade = (rating: number): Grade => {
   if (rating <= 3) {
     return Grade.Bad;
   } else if (rating <= 5) {
@@ -40,5 +40,3 @@ const getFilmGrade = (rating: number): Grade => {
     return Grade.Awesome;
   }
 };
-
-export {getFormattedTime, getTimeLeft, getFormattedDate, getFilmGrade};

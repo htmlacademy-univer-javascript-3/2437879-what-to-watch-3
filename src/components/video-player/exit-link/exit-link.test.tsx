@@ -6,7 +6,9 @@ import {withHistory} from '../../../mocks/mock-components';
 describe('Component: ExitLink', () => {
   it('should render correct', () => {
     const withHistoryComponent = withHistory(<ExitLink />);
+
     render(withHistoryComponent);
+
     expect(screen.getByText('Exit')).toBeInTheDocument();
   });
 });

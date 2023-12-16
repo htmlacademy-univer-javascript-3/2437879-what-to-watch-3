@@ -1,6 +1,6 @@
 import {FilmType} from '../../types/films';
 import {Link} from 'react-router-dom';
-import VideoPlayer from '../../components/video-player/video-player';
+import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
   promoFilm: FilmType;
@@ -9,18 +9,14 @@ type FilmCardProps = {
   onMouseOut: () => void;
 };
 
-function FilmCard({promoFilm, activeFilm, onMouseOver, onMouseOut}: FilmCardProps): JSX.Element {
+export default function FilmCard({promoFilm, activeFilm, onMouseOver, onMouseOut}: FilmCardProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card" data-testid={'film'}>
       <div className="small-film-card__image"
         onMouseOver={() => onMouseOver(promoFilm.id)}
         onMouseOut={() => onMouseOut()}
       >
-        <VideoPlayer
-          promoFilm={promoFilm}
-          activeFilm={activeFilm}
-          isMuted
-        />
+        <VideoPlayer promoFilm={promoFilm} activeFilm={activeFilm} isMuted />
       </div>
       <h3 className="small-film-card__title">
         <Link to={`/films/${promoFilm.id}`} className="small-film-card__link">{promoFilm.name}
@@ -29,5 +25,3 @@ function FilmCard({promoFilm, activeFilm, onMouseOver, onMouseOut}: FilmCardProp
     </article>
   );
 }
-
-export default FilmCard;

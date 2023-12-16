@@ -22,8 +22,8 @@ describe('Page: SignIn', () => {
     const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
 
     render(withStoreComponent);
-    await userEvent.type(screen.getByTestId('user-email'), mockEmail);
-    await userEvent.type(screen.getByTestId('user-password'), mockPassword);
+    await userEvent.type(screen.getByTestId('user-slice-email'), mockEmail);
+    await userEvent.type(screen.getByTestId('user-slice-password'), mockPassword);
 
     expect(screen.getByDisplayValue(mockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(mockPassword)).toBeInTheDocument();

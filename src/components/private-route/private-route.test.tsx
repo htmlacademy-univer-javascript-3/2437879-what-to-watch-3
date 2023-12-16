@@ -17,7 +17,7 @@ describe('Component: PrivateRoute', () => {
     mockHistory.push('/mylist');
   });
 
-  it('should render component for public route, when user not authorized', () => {
+  it('should render component for public route, when user-slice not authorized', () => {
     const expectedText = 'public route';
     const notExpectedText = 'private route';
     const preparedComponent = withHistory(
@@ -44,7 +44,7 @@ describe('Component: PrivateRoute', () => {
     expect(screen.queryByText(notExpectedText)).not.toBeInTheDocument();
   });
 
-  it('should render component for private route, when user authorized', () => {
+  it('should render component for private route, when user-slice authorized', () => {
     const notExpectedText = 'public route';
     const expectedText = 'private route';
     const preparedComponent = withHistory(
@@ -61,8 +61,10 @@ describe('Component: PrivateRoute', () => {
       </Routes>,
       mockHistory
     );
-    const { withStoreComponent } = withStore(preparedComponent, {
-      [NameSpace.User]: { authorizationStatus: AuthorizationStatus.Auth, userImage: '' },
+    const {withStoreComponent} = withStore(preparedComponent, {
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.Auth, userImage: ''
+      },
     });
 
     render(withStoreComponent);
