@@ -5,6 +5,7 @@ import Spinner from './spinner.tsx';
 describe('Component: Spinner', () => {
   it('should render correct', () => {
     render(<Spinner />);
+
     expect(screen.getByTestId('spinner')).toBeInTheDocument();
   });
 });

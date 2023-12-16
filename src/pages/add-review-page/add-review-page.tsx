@@ -1,21 +1,21 @@
 import {useEffect} from 'react';
 import {AddReviewForm} from './add-review-form';
 import {Link, useParams} from 'react-router-dom';
-import UserBlock from '../main-page/user-block';
+import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
-import {fetchFilmAction} from '../../services/api-actions';
-import {getFilmCard} from '../../services/films/selectors';
+import {fetchFilmDataAction} from '../../services/api-actions';
+import {getFilmCard} from '../../services/films-slice/selectors';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 
-function AddReviewPage() {
+export default function AddReviewPage() {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const filmCard = useAppSelector(getFilmCard);
 
   useEffect(() => {
     if (id && id !== filmCard?.id) {
-      dispatch(fetchFilmAction(id));
+      dispatch(fetchFilmDataAction(id));
     }
   }, [dispatch, filmCard?.id, id]);
 
@@ -62,5 +62,3 @@ function AddReviewPage() {
     </section>
   );
 }
-
-export default AddReviewPage;

@@ -2,7 +2,7 @@ import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
 import {FormEventHandler, useRef} from 'react';
 import {useAppDispatch} from '../../components/hooks/hooks';
-import {login} from '../../services/api-actions';
+import {loginAction} from '../../services/api-actions';
 import {useNavigate} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
@@ -18,10 +18,11 @@ function SignInPage(): JSX.Element {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      dispatch(login({
+      dispatch(loginAction({
         email: loginRef.current.value,
         password: passwordRef.current.value
       }));
+
       navigate(AppRoute.Main);
     }
   };
@@ -42,13 +43,13 @@ function SignInPage(): JSX.Element {
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input ref={loginRef} className="sign-in__input" type="email" placeholder="Email address" name="user-email"
-                id="user-email" data-testid={'user-email'}
+                id="user-email" data-testid={'user-slice-email'}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
               <input ref={passwordRef} className="sign-in__input" type="password" placeholder="Password" name="user-password"
-                id="user-password" data-testid={'user-password'}
+                id="user-password" data-testid={'user-slice-password'}
               />
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>

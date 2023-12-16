@@ -50,10 +50,10 @@ export const makeFakeFilmCard = () =>
     videoLink: image.imageUrl(),
     description: lorem.text(),
     rating: getRandomNumber(0, 10),
-    scoresCount: getRandomNumber(0, 10000),
+    scoresCount: getRandomNumber(0, 100000),
     director: name.lastName(),
     starring: new Array(getRandomNumber(2, 5)).fill(null).map(() => name.lastName()),
-    runTime: getRandomNumber(70, 180),
+    runTime: getRandomNumber(50, 200),
     genre: music.genre(),
     released: date.recent().getFullYear(),
     isFavorite: datatype.boolean(),
@@ -82,7 +82,9 @@ export const makeFakeUser = () => ({
 
 export const makeFakeGenres = () =>
   [Genre.All].concat(
-    Array.from(new Set(new Array(getRandomNumber(1, 10)).fill(null).map(() => faker.random.arrayElement(Object.values(Genre)))))
+    Array.from(new Set(new Array(getRandomNumber(1, 10))
+      .fill(null)
+      .map(() => faker.random.arrayElement(Object.values(Genre)))))
   );
 
 export const makeFakeStore = (initialState?: Partial<State>): State => ({
@@ -105,4 +107,5 @@ export const makeFakeStore = (initialState?: Partial<State>): State => ({
   ...(initialState ?? {}),
 });
 
-export const extractActionsTypes = (actions: Action<string>[]) => actions.map(({ type }) => type);
+export const extractActionsTypes = (actions: Action<string>[]) =>
+  actions.map(({ type }) => type);

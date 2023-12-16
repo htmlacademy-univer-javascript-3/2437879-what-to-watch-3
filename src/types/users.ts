@@ -1,11 +1,11 @@
 export type ImageUrl = string;
 
-export type UserFormValues = {
+export type UserFormValuesType = {
   email: string;
   password: string;
 }
 
-export type AuthInfo = {
+export type AuthInfoType = {
   name: string;
   avatarUrl: string;
   email: string;

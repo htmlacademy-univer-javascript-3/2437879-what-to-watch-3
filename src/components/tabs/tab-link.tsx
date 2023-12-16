@@ -10,8 +10,7 @@ type TabLinkProps = {
 
 export default function TabLink({ tabType, activeTab, onClick }: TabLinkProps): JSX.Element {
   return (
-    <li
-      className={cn('film-nav__item', tabType === activeTab && 'film-nav__item--active')}
+    <li className={cn('film-nav__item', tabType === activeTab && 'film-nav__item--active')}
       onClick={onClick}
       id={tabType}
       data-testid={tabType}

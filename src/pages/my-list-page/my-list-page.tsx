@@ -1,13 +1,13 @@
-import {FilmCards} from '../main-page/film-cards';
+import {FilmCards} from '../../components/film-cards/film-cards';
 import {AppRoute} from '../../const';
 import {Link} from 'react-router-dom';
-import UserBlock from '../main-page/user-block';
+import UserBlock from '../../components/user-block/user-block';
 import {useAppSelector} from '../../components/hooks/hooks';
-import {getMyList} from '../../services/films/selectors';
+import {getMyList} from '../../services/films-slice/selectors';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
 
-function MyListPage(): JSX.Element {
+export default function MyListPage(): JSX.Element {
   const films = useAppSelector(getMyList);
 
   return (
@@ -44,5 +44,3 @@ function MyListPage(): JSX.Element {
     </div>
   );
 }
-
-export default MyListPage;

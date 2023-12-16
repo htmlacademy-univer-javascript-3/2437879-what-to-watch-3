@@ -9,11 +9,11 @@ import {AppRoute} from '../../const';
 import PrivateRoute from '../private-route/private-route';
 import {Routes, Route} from 'react-router-dom';
 import {useAppSelector, useAppDispatch} from '../hooks/hooks';
-import {getIsDataLoading} from '../../services/films/selectors';
+import {getIsDataLoading} from '../../services/films-slice/selectors';
 import Spinner from '../spinner/spinner';
 import {useEffect} from 'react';
-import {getAuthorized} from '../../services/user/selectors';
-import {fetchMyList} from '../../services/api-actions';
+import {getAuthorized} from '../../services/user-slice/selectors';
+import {fetchMyListAction} from '../../services/api-actions';
 import {HelmetProvider} from 'react-helmet-async';
 
 function App(): JSX.Element {
@@ -23,7 +23,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (authorized) {
-      dispatch(fetchMyList());
+      dispatch(fetchMyListAction());
     }
   }, [authorized, dispatch]);
 

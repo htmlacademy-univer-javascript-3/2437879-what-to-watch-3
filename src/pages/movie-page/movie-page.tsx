@@ -1,18 +1,18 @@
-import {FilmCards} from '../main-page/film-cards';
-import {AppRoute, MoreLikeFilmsCount} from '../../const';
+import {FilmCards} from '../../components/film-cards/film-cards';
+import {AppRoute, MORE_LIKES_FILMS_COUNT} from '../../const';
 import {Link, useParams} from 'react-router-dom';
 import Tabs from '../../components/tabs/tabs';
-import UserBlock from '../main-page/user-block';
+import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
 import {useEffect} from 'react';
-import {fetchFilmAction} from '../../services/api-actions';
-import {getAuthorized} from '../../services/user/selectors';
-import {getFilmCard, getMoreLikeThis} from '../../services/films/selectors';
+import {fetchFilmDataAction} from '../../services/api-actions';
+import {getAuthorized} from '../../services/user-slice/selectors';
+import {getFilmCard, getMoreLikeThis} from '../../services/films-slice/selectors';
 import Logo from '../../components/logo/logo';
 import MyListButton from '../../components/my-list-button/my-list-button';
 import {Helmet} from 'react-helmet-async';
 
-function MoviePage() {
+export default function MoviePage() {
   const {id} = useParams();
   const dispatch = useAppDispatch();
 
@@ -22,7 +22,7 @@ function MoviePage() {
 
   useEffect(() => {
     if (id && id !== filmCard?.id) {
-      dispatch(fetchFilmAction(id));
+      dispatch(fetchFilmDataAction(id));
     }
   }, [dispatch, filmCard?.id, id]);
 
@@ -93,7 +93,7 @@ function MoviePage() {
         {moreLikeThis.length !== 0 && (
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmCards films={moreLikeThis} filmsCount={MoreLikeFilmsCount}/>
+            <FilmCards films={moreLikeThis} filmsCount={MORE_LIKES_FILMS_COUNT}/>
           </section>
         )}
 
@@ -114,5 +114,3 @@ function MoviePage() {
     </>
   );
 }
-
-export default MoviePage;

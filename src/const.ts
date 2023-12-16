@@ -1,16 +1,13 @@
-import {FilmCardType} from './types/films';
-
-export const MoreLikeFilmsCount = 4;
-export const ShowFilmsCount = 8;
-export const MaxGenresCount = 9;
-export const HoverFilmCardTime = 1000;
-export const ShowErrorTimeout = 2000;
-export const AuthTokenName = 'what-to-watch-token';
+export const MORE_LIKES_FILMS_COUNT = 4;
+export const SHOW_FILMS_COUNT = 8;
+export const MAX_GENRES_COUNT = 9;
+export const HOVER_FILM_CARD_TIME = 1000;
+export const AUTH_TOKEN_NAME = 'what-to-watch-token';
 
 export const CommentLength = {
   Min: 50,
   Max: 400,
-};
+} as const;
 
 export enum NameSpace {
   Films = 'Films',
@@ -33,38 +30,6 @@ export enum Genre {
   Adventure = 'Adventure',
   New = 'New Genre'
 }
-
-export const PromoFilm = {
-  id: 'aba664c3-bdf3-4fb3-b8f3-42e007864bbf',
-  name: 'The Grand Budapest Hotel',
-  posterImage: 'https://url-to-image/image.jpg',
-  backgroundImage: 'https://url-to-image/image.jpg',
-  videoLink: 'https://url-to-video/video.mp4',
-  genre: Genre.Comedy,
-  released: 2014,
-  isFavorite: false,
-};
-
-export const filmCard: FilmCardType = {
-  id: '36b6dce1-ec9b-4b1e-8002-32b737c7da29',
-  name: 'Fantastic Beasts: The Crimes of Grindelwald',
-  posterImage:
-    'https://13.design.pages.academy/static/film/poster/Fantastic_Beasts.jpg',
-  backgroundImage:
-    'https://13.design.pages.academy/static/film/background/Fantastic_Beasts.jpg',
-  backgroundColor: '#B6A99F',
-  videoLink: 'https://13.design.pages.academy/static/film/video/bike.mp4',
-  description:
-    'In an effort to thwart Grindelwalds plans of raising pure-blood wizards to rule over all non-magical beings, Albus Dumbledore enlists his former student Newt Scamander, who agrees to help, though he unaware of the dangers that lie ahead. Lines are drawn as love and loyalty are tested, even among the truest friends and family, in an increasingly divided wizarding world.',
-  rating: 3.4,
-  scoresCount: 160757,
-  director: 'David Yates',
-  starring: ['Eddie Redmayne', 'Katherine Waterston', 'Dan Fogler'],
-  runTime: 134,
-  genre: Genre.Fantasy,
-  released: 2018,
-  isFavorite: false,
-};
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -98,7 +63,7 @@ export const ApiRoute = {
   Comments: (filmId: string) => `/comments/${filmId}`,
   Login: () => '/login',
   Logout: () => '/logout',
-};
+} as const;
 
 export enum TabType {
   Overview = 'Overview',

@@ -9,7 +9,7 @@ describe('Component: PromoFilm', () => {
   it('should render correct', () => {
     const promoFilm = makeFakePromoFilm();
     const withHistoryComponent = withHistory(<PromoFilm promoFilm={promoFilm} />);
-    const { withStoreComponent } = withStore(
+    const {withStoreComponent} = withStore(
       withHistoryComponent,
       makeFakeStore({
         [NameSpace.User]: { authorizationStatus: AuthorizationStatus.Auth, userImage: '' },

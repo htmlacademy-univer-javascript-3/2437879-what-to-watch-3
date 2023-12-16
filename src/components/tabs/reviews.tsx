@@ -1,6 +1,6 @@
 import UserReview from './user-review';
 import {useAppSelector} from '../hooks/hooks';
-import {getComments} from '../../services/films/selectors';
+import {getComments} from '../../services/films-slice/selectors';
 
 export default function Reviews(): JSX.Element {
   const comments = useAppSelector(getComments);

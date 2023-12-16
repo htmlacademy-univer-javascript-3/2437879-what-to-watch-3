@@ -5,11 +5,13 @@ import {render, screen} from '@testing-library/react';
 import UserBlock from './user-block.tsx';
 
 describe('Component: UserBlock', () => {
-  it('should render Sign in when user not authorized', () => {
+  it('should render Sign in when user-slice not authorized', () => {
     const withHistoryComponent = withHistory(<UserBlock />);
 
-    const { withStoreComponent } = withStore(withHistoryComponent, {
-      [NameSpace.User]: { authorizationStatus: AuthorizationStatus.NoAuth, userImage: '' },
+    const {withStoreComponent} = withStore(withHistoryComponent, {
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.NoAuth, userImage: ''
+      },
     });
 
     render(withStoreComponent);
@@ -17,11 +19,13 @@ describe('Component: UserBlock', () => {
     expect(screen.getByText('Sign in')).toBeInTheDocument();
   });
 
-  it('should render Sign out when user authorized', () => {
+  it('should render Sign out when user-slice authorized', () => {
     const withHistoryComponent = withHistory(<UserBlock />);
 
     const { withStoreComponent } = withStore(withHistoryComponent, {
-      [NameSpace.User]: { authorizationStatus: AuthorizationStatus.Auth, userImage: '' },
+      [NameSpace.User]: {
+        authorizationStatus: AuthorizationStatus.Auth, userImage: ''
+      },
     });
 
     render(withStoreComponent);

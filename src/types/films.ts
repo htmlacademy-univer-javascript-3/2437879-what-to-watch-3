@@ -39,10 +39,4 @@ export type FilmCardType = {
   isFavorite: boolean;
 };
 
-export type ReviewType = {
-  id: number;
-  author: string;
-  rating: number;
-  comment: string;
-  date: string;
-};
+

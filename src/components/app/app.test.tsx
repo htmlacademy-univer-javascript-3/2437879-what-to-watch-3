@@ -4,7 +4,7 @@ import {withHistory, withStore} from '../../mocks/mock-components.tsx';
 import App from './app.tsx';
 import {makeFakeStore} from '../../mocks/mock-data.ts';
 import {render, screen} from '@testing-library/react';
-import {AuthorizationStatus, NameSpace, ShowFilmsCount} from '../../const';
+import {AuthorizationStatus, NameSpace, SHOW_FILMS_COUNT} from '../../const';
 import {internet} from 'faker';
 
 describe('Application Routing', () => {
@@ -14,19 +14,19 @@ describe('Application Routing', () => {
     mockHistory = createMemoryHistory();
   });
 
-  it('should render the "MainPage" when user navigate to "/"', () => {
+  it('should render the "MainPage" when user-slice navigate to "/"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const {withStoreComponent} = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push('/');
 
     render(withStoreComponent);
 
-    expect(screen.getAllByTestId('film').length).toBe(ShowFilmsCount);
+    expect(screen.getAllByTestId('film').length).toBe(SHOW_FILMS_COUNT);
   });
 
-  it('should render the "MyList" when user navigate to "/mylist"', () => {
+  it('should render the "MyList" when user-slice navigate to "/mylist"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    const { withStoreComponent } = withStore(
+    const {withStoreComponent} = withStore(
       withHistoryComponent,
       makeFakeStore({
         [NameSpace.User]: {
@@ -43,9 +43,9 @@ describe('Application Routing', () => {
     expect(screen.getAllByTestId('film')).not.toHaveLength(0);
   });
 
-  it('should render the "SignIn" when user navigate to "/login"', () => {
+  it('should render the "SignIn" when user-slice navigate to "/login"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const {withStoreComponent} = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push('/login');
 
     render(withStoreComponent);
@@ -55,9 +55,9 @@ describe('Application Routing', () => {
     expect(screen.getByLabelText('Password')).toBeInTheDocument();
   });
 
-  it('should render the "Player" when user navigate to "/player"', () => {
+  it('should render the "Player" when user-slice navigate to "/player"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const {withStoreComponent} = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push('/player/test');
 
     render(withStoreComponent);
@@ -65,9 +65,9 @@ describe('Application Routing', () => {
     expect(screen.getByText('Exit')).toBeInTheDocument();
   });
 
-  it('should render the "Movie" when user navigate to "/films"', () => {
+  it('should render the "Movie" when user-slice navigate to "/films"', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    const { withStoreComponent } = withStore(
+    const {withStoreComponent} = withStore(
       withHistoryComponent,
       makeFakeStore({
         [NameSpace.User]: {
@@ -85,9 +85,9 @@ describe('Application Routing', () => {
     expect(screen.getAllByText('My list')[0]).toBeInTheDocument();
   });
 
-  it('should render the "NotFound" when user navigate to unknown route', () => {
+  it('should render the "NotFound" when user-slice navigate to unknown route', () => {
     const withHistoryComponent = withHistory(<App />, mockHistory);
-    const { withStoreComponent } = withStore(withHistoryComponent, makeFakeStore());
+    const {withStoreComponent} = withStore(withHistoryComponent, makeFakeStore());
     mockHistory.push('/unknown');
 
     render(withStoreComponent);

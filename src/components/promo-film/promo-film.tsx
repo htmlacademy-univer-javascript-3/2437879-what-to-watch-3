@@ -1,10 +1,10 @@
 import {PromoFilmType} from '../../types/films';
-import {useAppSelector} from '../../components/hooks/hooks';
+import {useAppSelector} from '../hooks/hooks';
 import {Link} from 'react-router-dom';
-import UserBlock from './user-block';
-import MyListButton from '../../components/my-list-button/my-list-button';
-import {getAuthorized} from '../../services/user/selectors';
-import Logo from '../../components/logo/logo';
+import UserBlock from '../user-block/user-block';
+import MyListButton from '../my-list-button/my-list-button';
+import {getAuthorized} from '../../services/user-slice/selectors';
+import Logo from '../logo/logo';
 import React from 'react';
 
 type PromoFilmProps = {

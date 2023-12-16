@@ -22,6 +22,7 @@ describe('Page: AddReview', () => {
     const mockText = 'Some review text';
 
     render(withStoreComponent);
+
     await userEvent.type(screen.getByTestId('comment'), mockText);
 
     expect(screen.getByDisplayValue(mockText)).toBeInTheDocument();

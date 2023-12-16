@@ -4,28 +4,10 @@ import thunk from 'redux-thunk';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import {Action} from 'redux';
-import {
-  AppThunkDispatch,
-  extractActionsTypes,
-  makeFakeComments,
-  makeFakeFilmCard,
-  makeFakeFilmsList,
-  makeFakePromoFilm,
-  makeFakeUser,
-} from '../mocks/mock-data.ts';
+import {AppThunkDispatch, extractActionsTypes, makeFakeComments, makeFakeFilmCard, makeFakeFilmsList, makeFakePromoFilm, makeFakeUser} from '../mocks/mock-data.ts';
 import {State} from '../store/types';
-import { Genre, ApiRoute, AuthorizationStatus, FilmStatus, NameSpace } from '../const.ts';
-import {
-  checkAuth,
-  fetchFilmAction,
-  fetchFilmsAction,
-  fetchMyList,
-  fetchPromoFilmAction,
-  login,
-  logOut,
-  sendComment,
-  setFilmStatus,
-} from './api-actions.ts';
+import {Genre, ApiRoute, AuthorizationStatus, FilmStatus, NameSpace} from '../const.ts';
+import {checkAuthAction, fetchFilmDataAction, fetchFilmsAction, fetchMyListAction, fetchPromoFilmAction, loginAction, logoutAction, sendCommentAction, setFilmStatusAction} from './api-actions.ts';
 import * as tokenStorage from '../services/token.ts';
 import {redirectToRoute} from './action.ts';
 
@@ -63,36 +45,36 @@ describe('Async actions', () => {
       const fakeResponse = { token: 'token' };
       mockAxiosAdapter.onPost(ApiRoute.Login(), fakeUser).reply(200, fakeResponse);
 
-      await store.dispatch(login(fakeUser));
+      await store.dispatch(loginAction(fakeUser));
       const actions = extractActionsTypes(store.getActions());
 
       expect(actions).toEqual([
-        login.pending.type,
+        loginAction.pending.type,
         redirectToRoute.type,
-        login.fulfilled.type,
+        loginAction.fulfilled.type,
       ]);
     });
 
     it('should call "saveToken" once with the received token', async () => {
-      const fakeUser = { email: 'test@test.com', password: 'password' };
-      const fakeResponse = { token: 'token' };
+      const fakeUser = {email: 'my@my.com', password: 'qwerty1'};
+      const fakeResponse = {token: 'mysecrettoken'};
       mockAxiosAdapter.onPost(ApiRoute.Login(), fakeUser).reply(200, fakeResponse);
       const mockSaveToken = vi.spyOn(tokenStorage, 'saveToken');
 
-      await store.dispatch(login(fakeUser));
+      await store.dispatch(loginAction(fakeUser));
 
       expect(mockSaveToken).toBeCalledTimes(1);
       expect(mockSaveToken).toBeCalledWith(fakeResponse.token);
     });
 
     it('should dispatch "loginAction.pending" and "loginAction.rejected" with thunk "loginAction" when server response 400', async () => {
-      const fakeUser = { email: 'test@test.com', password: 'password' };
+      const fakeUser = {email: 'my@my.com', password: 'qwerty1'};
       mockAxiosAdapter.onPost(ApiRoute.Login(), fakeUser).reply(400);
 
-      await store.dispatch(login(fakeUser));
+      await store.dispatch(loginAction(fakeUser));
       const actions = extractActionsTypes(store.getActions());
 
-      expect(actions).toEqual([login.pending.type, login.rejected.type]);
+      expect(actions).toEqual([loginAction.pending.type, loginAction.rejected.type]);
     });
   });
 
@@ -100,17 +82,17 @@ describe('Async actions', () => {
     it('should dispatch "logoutAction.pending" and "logoutAction.fulfilled" with thunk "logout"', async () => {
       mockAxiosAdapter.onDelete(ApiRoute.Logout()).reply(200);
 
-      await store.dispatch(logOut());
+      await store.dispatch(logoutAction());
       const actions = extractActionsTypes(store.getActions());
 
-      expect(actions).toEqual([logOut.pending.type, logOut.fulfilled.type]);
+      expect(actions).toEqual([logoutAction.pending.type, logoutAction.fulfilled.type]);
     });
 
     it('should call "removeToken" once', async () => {
       mockAxiosAdapter.onDelete(ApiRoute.Logout()).reply(200);
       const mockRemoveToken = vi.spyOn(tokenStorage, 'removeToken');
 
-      await store.dispatch(logOut());
+      await store.dispatch(logoutAction());
 
       expect(mockRemoveToken).toBeCalledTimes(1);
     });
@@ -118,10 +100,10 @@ describe('Async actions', () => {
     it('should dispatch "logoutAction.pending" and "logoutAction.rejected" with thunk "logout" when server response 400', async () => {
       mockAxiosAdapter.onDelete(ApiRoute.Logout()).reply(400);
 
-      await store.dispatch(logOut());
+      await store.dispatch(logoutAction());
       const actions = extractActionsTypes(store.getActions());
 
-      expect(actions).toEqual([logOut.pending.type, logOut.rejected.type]);
+      expect(actions).toEqual([logoutAction.pending.type, logoutAction.rejected.type]);
     });
   });
 
@@ -130,15 +112,16 @@ describe('Async actions', () => {
       const fakeUser = makeFakeUser();
       mockAxiosAdapter.onGet(ApiRoute.Login()).reply(200, fakeUser);
 
-      await store.dispatch(checkAuth());
+      await store.dispatch(checkAuthAction());
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
       const checkAuthActionFulfilled = emittedActions.at(1) as ReturnType<
-        typeof checkAuth.fulfilled
+        typeof checkAuthAction.fulfilled
       >;
+
       expect(extractedActionsTypes).toEqual([
-        checkAuth.pending.type,
-        checkAuth.fulfilled.type,
+        checkAuthAction.pending.type,
+        checkAuthAction.fulfilled.type,
       ]);
 
       expect(checkAuthActionFulfilled.payload).toBe(fakeUser.avatarUrl);
@@ -146,12 +129,13 @@ describe('Async actions', () => {
 
     it('should dispatch "checkAuthAction.pending" and "checkAuthAction.rejected" with thunk "checkAuthAction" when server response 400', async () => {
       mockAxiosAdapter.onGet(ApiRoute.Login()).reply(400);
-      await store.dispatch(checkAuth());
+      await store.dispatch(checkAuthAction());
 
       const extractedActionsTypes = extractActionsTypes(store.getActions());
+
       expect(extractedActionsTypes).toEqual([
-        checkAuth.pending.type,
-        checkAuth.rejected.type,
+        checkAuthAction.pending.type,
+        checkAuthAction.rejected.type,
       ]);
     });
   });
@@ -167,6 +151,7 @@ describe('Async actions', () => {
       const fetchFilmsActionFulfilled = emittedActions.at(1) as ReturnType<
         typeof fetchFilmsAction.fulfilled
       >;
+
       expect(extractedActionsTypes).toEqual([
         fetchFilmsAction.pending.type,
         fetchFilmsAction.fulfilled.type,
@@ -180,6 +165,7 @@ describe('Async actions', () => {
       await store.dispatch(fetchFilmsAction());
 
       const extractedActionsTypes = extractActionsTypes(store.getActions());
+
       expect(extractedActionsTypes).toEqual([
         fetchFilmsAction.pending.type,
         fetchFilmsAction.rejected.type,
@@ -212,6 +198,7 @@ describe('Async actions', () => {
       await store.dispatch(fetchPromoFilmAction());
 
       const extractedActionsTypes = extractActionsTypes(store.getActions());
+
       expect(extractedActionsTypes).toEqual([
         fetchPromoFilmAction.pending.type,
         fetchPromoFilmAction.rejected.type,
@@ -224,20 +211,22 @@ describe('Async actions', () => {
       const filmCard = makeFakeFilmCard();
       const comments = makeFakeComments();
       const moreLikeThis = makeFakeFilmsList();
+
       mockAxiosAdapter.onGet(ApiRoute.Film(filmCard.id)).reply(200, filmCard);
       mockAxiosAdapter.onGet(ApiRoute.Comments(filmCard.id)).reply(200, comments);
       mockAxiosAdapter.onGet(ApiRoute.Similar(filmCard.id)).reply(200, moreLikeThis);
 
-      await store.dispatch(fetchFilmAction(filmCard.id));
+      await store.dispatch(fetchFilmDataAction(filmCard.id));
+
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
       const fetchFilmDataActionFulfilled = emittedActions.at(1) as ReturnType<
-        typeof fetchFilmAction.fulfilled
+        typeof fetchFilmDataAction.fulfilled
       >;
 
       expect(extractedActionsTypes).toEqual([
-        fetchFilmAction.pending.type,
-        fetchFilmAction.fulfilled.type,
+        fetchFilmDataAction.pending.type,
+        fetchFilmDataAction.fulfilled.type,
       ]);
 
       expect(fetchFilmDataActionFulfilled.payload).toEqual({
@@ -251,18 +240,19 @@ describe('Async actions', () => {
       const id = 'unknown';
       mockAxiosAdapter.onGet(ApiRoute.Film(id)).reply(400);
 
-      await store.dispatch(fetchFilmAction(id));
+      await store.dispatch(fetchFilmDataAction(id));
+
       const extractedActionsTypes = extractActionsTypes(store.getActions());
 
       expect(extractedActionsTypes).toEqual([
-        fetchFilmAction.pending.type,
-        fetchFilmAction.rejected.type,
+        fetchFilmDataAction.pending.type,
+        fetchFilmDataAction.rejected.type,
       ]);
     });
   });
 
-  describe('sendComment', () => {
-    it('should dispatch "sendComment.pending" and "sendComment.fulfilled" with thunk "sendComment', async () => {
+  describe('sendCommentAction', () => {
+    it('should dispatch "sendCommentAction.pending" and "sendCommentAction.fulfilled" with thunk "sendCommentAction', async () => {
       const filmId = 'some-id';
       const [comment] = makeFakeComments();
       mockAxiosAdapter
@@ -273,90 +263,95 @@ describe('Async actions', () => {
         .reply(200, comment);
 
       await store.dispatch(
-        sendComment({
+        sendCommentAction({
           id: filmId,
           rating: comment.rating,
           comment: comment.comment,
         })
       );
+
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
       const sendCommentFulfilled = emittedActions.at(1) as ReturnType<
-        typeof sendComment.fulfilled
+        typeof sendCommentAction.fulfilled
       >;
 
       expect(extractedActionsTypes).toEqual([
-        sendComment.pending.type,
-        sendComment.fulfilled.type,
+        sendCommentAction.pending.type,
+        sendCommentAction.fulfilled.type,
       ]);
 
       expect(sendCommentFulfilled.payload).toEqual(comment);
     });
 
-    it('should dispatch "sendComment.pending" and "sendComment.rejected" with thunk "sendComment" when server response 400', async () => {
+    it('should dispatch "sendCommentAction.pending" and "sendCommentAction.rejected" with thunk "sendCommentAction" when server response 400', async () => {
       const id = 'unknown';
       mockAxiosAdapter.onPost(ApiRoute.Film(id), {}).reply(400);
 
-      await store.dispatch(sendComment({ id: id, rating: 0, comment: '' }));
+      await store.dispatch(sendCommentAction({id: id, rating: 0, comment: ''}));
+
       const extractedActionsTypes = extractActionsTypes(store.getActions());
 
       expect(extractedActionsTypes).toEqual([
-        sendComment.pending.type,
-        sendComment.rejected.type,
+        sendCommentAction.pending.type,
+        sendCommentAction.rejected.type,
       ]);
     });
   });
 
-  describe('fetchMyList', () => {
-    it('should dispatch "fetchMyList.pending" and "fetchMyList.fulfilled" with thunk "fetchMyList', async () => {
+  describe('fetchMyListAction', () => {
+    it('should dispatch "fetchMyListAction.pending" and "fetchMyListAction.fulfilled" with thunk "fetchMyListAction"', async () => {
       const films = makeFakeFilmsList();
       mockAxiosAdapter.onGet(ApiRoute.Favorite()).reply(200, films);
 
-      await store.dispatch(fetchMyList());
+      await store.dispatch(fetchMyListAction());
+
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
       const fetchMyListFulfilled = emittedActions.at(1) as ReturnType<
-        typeof fetchMyList.fulfilled
+        typeof fetchMyListAction.fulfilled
       >;
 
       expect(extractedActionsTypes).toEqual([
-        fetchMyList.pending.type,
-        fetchMyList.fulfilled.type,
+        fetchMyListAction.pending.type,
+        fetchMyListAction.fulfilled.type,
       ]);
 
       expect(fetchMyListFulfilled.payload).toEqual(films);
     });
 
-    it('should dispatch "fetchMyList.pending" and "sendComment.rejected" with thunk "fetchMyList" when server response 400', async () => {
+    it('should dispatch "fetchMyListAction.pending" and "sendCommentAction.rejected" with thunk "fetchMyListAction" when server response 400', async () => {
       mockAxiosAdapter.onGet(ApiRoute.Favorite()).reply(400);
 
-      await store.dispatch(fetchMyList());
+      await store.dispatch(fetchMyListAction());
+
       const extractedActionsTypes = extractActionsTypes(store.getActions());
 
       expect(extractedActionsTypes).toEqual([
-        fetchMyList.pending.type,
-        fetchMyList.rejected.type,
+        fetchMyListAction.pending.type,
+        fetchMyListAction.rejected.type,
       ]);
     });
   });
 
-  describe('setFilmStatus', () => {
-    it('should dispatch "setFilmStatus.pending" and "setFilmStatus.fulfilled" with thunk "setFilmStatus', async () => {
+  describe('setFilmStatusAction', () => {
+    it('should dispatch "setFilmStatusAction.pending" and "setFilmStatusAction.fulfilled" with thunk "setFilmStatusAction"', async () => {
       const film = makeFakeFilmCard();
       mockAxiosAdapter
         .onPost(ApiRoute.SetFilmStatus(film.id, FilmStatus.Viewed))
         .reply(200, { ...film, isFavorite: false });
 
-      await store.dispatch(setFilmStatus({ id: film.id, filmStatus: FilmStatus.Viewed }));
+      await store.dispatch(setFilmStatusAction({ id: film.id, filmStatus: FilmStatus.Viewed }));
+
       const emittedActions = store.getActions();
       const extractedActionsTypes = extractActionsTypes(emittedActions);
       const setFilmStatusFulfilled = emittedActions.at(1) as ReturnType<
-        typeof setFilmStatus.fulfilled
+        typeof setFilmStatusAction.fulfilled
       >;
 
       expect(extractedActionsTypes).toEqual([
-        setFilmStatus.pending.type,
-        setFilmStatus.fulfilled.type,
+        setFilmStatusAction.pending.type,
+        setFilmStatusAction.fulfilled.type,
       ]);
 
       expect(setFilmStatusFulfilled.payload).toEqual({
@@ -365,17 +360,18 @@ describe('Async actions', () => {
       });
     });
 
-    it('should dispatch "setFilmStatus.pending" and "setFilmStatus.rejected" with thunk "setFilmStatus" when server response 400', async () => {
+    it('should dispatch "setFilmStatusAction.pending" and "setFilmStatusAction.rejected" with thunk "setFilmStatusAction" when server response 400', async () => {
       const id = 'unknown';
       const filmStatus = FilmStatus.Viewed;
       mockAxiosAdapter.onPost(ApiRoute.SetFilmStatus(id, filmStatus), {}).reply(400);
 
-      await store.dispatch(setFilmStatus({ id: id, filmStatus: filmStatus }));
+      await store.dispatch(setFilmStatusAction({ id: id, filmStatus: filmStatus }));
+
       const extractedActionsTypes = extractActionsTypes(store.getActions());
 
       expect(extractedActionsTypes).toEqual([
-        setFilmStatus.pending.type,
-        setFilmStatus.rejected.type,
+        setFilmStatusAction.pending.type,
+        setFilmStatusAction.rejected.type,
       ]);
     });
   });
