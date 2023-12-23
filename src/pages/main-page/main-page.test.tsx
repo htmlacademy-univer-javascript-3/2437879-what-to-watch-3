@@ -14,6 +14,6 @@ describe('Page: Main', () => {
 
     expect(screen.getByText('Show more')).toBeInTheDocument();
     expect(screen.getByText(/What to watch Ltd./i)).toBeInTheDocument();
-    expect(screen.getByText(Genre.All)).toBeInTheDocument();
+    expect(screen.getAllByText(Genre.All)[0]).toBeInTheDocument();
   });
 });

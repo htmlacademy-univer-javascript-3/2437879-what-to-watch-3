@@ -1,11 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AxiosInstance} from 'axios';
-import {ApiRoute, AppRoute, FilmStatus} from '../const';
+import {ApiRoute, FilmStatus} from '../const';
 import {FilmCardType, FilmType, PromoFilmType} from '../types/films';
 import {AppDispatch, State} from '../store/types';
 import {AuthInfoType, CommentType, ImageUrl, UserFormValuesType} from '../types/users';
 import {removeToken, saveToken} from './token';
-import {redirectToRoute} from './action';
 
 export const fetchFilmsAction = createAsyncThunk<
   FilmType[],
@@ -114,10 +113,9 @@ export const loginAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('user-slice/login', async (form, {dispatch, extra: api}) => {
+>('user-slice/login', async (form, {extra: api}) => {
   const {data} = await api.post<AuthInfoType>(ApiRoute.Login(), form);
   saveToken(data.token);
-  dispatch(redirectToRoute(AppRoute.Main));
   return data.avatarUrl;
 });
 

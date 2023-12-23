@@ -30,7 +30,7 @@ describe('FilmsSlice', () => {
     expect(result).toEqual(baseState);
   });
 
-  it('should set new active genre with "setActiveGenre" action', () => {
+  it('should set new active genre-list with "setActiveGenre" action', () => {
     const newGenre = Genre.New;
     const expectedState = {...baseState, activeGenre: newGenre};
     const result = filmsSlice.reducer(undefined, setActiveGenre(newGenre));

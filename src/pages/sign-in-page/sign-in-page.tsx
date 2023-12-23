@@ -1,29 +1,51 @@
-import {AppRoute} from '../../const';
-import {Link} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {Link, useNavigate} from 'react-router-dom';
 import {FormEventHandler, useRef} from 'react';
-import {useAppDispatch} from '../../components/hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../components/hooks/hooks';
 import {loginAction} from '../../services/api-actions';
-import {useNavigate} from 'react-router-dom';
+import {getAuthorizationStatus} from '../../services/user-slice/selectors';
 import Logo from '../../components/logo/logo';
 import {Helmet} from 'react-helmet-async';
+import {toast} from 'react-toastify';
 
 function SignInPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+
+  const validateEmail = (login: string) =>
+    Boolean(login.match(/[a-zA-Z0-9.]+@[a-zA-Z]+[.][a-zA-Z]{2,4}$/));
+
+  const validatePassword = (password: string) =>
+    Boolean(password.match(/^(?=.*[a-zA-Z])(?=.*[0-9]).+$/));
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (evt) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
+      if (!validateEmail(loginRef.current.value)) {
+        toast.warn('Введите корректный email');
+        return;
+      }
+
+      if (!validatePassword(passwordRef.current.value)) {
+        toast.warn('Введите пароль, состоящий минимум из одной латинской буквы и цифры');
+        return;
+      }
+
       dispatch(loginAction({
         email: loginRef.current.value,
         password: passwordRef.current.value
       }));
+    }
 
+    if (authStatus === AuthorizationStatus.Auth) {
       navigate(AppRoute.Main);
+    } else {
+      toast.warn('Неправильный логин и/или пароль');
     }
   };
 
