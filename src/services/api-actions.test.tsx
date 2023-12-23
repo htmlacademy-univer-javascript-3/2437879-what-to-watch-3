@@ -9,7 +9,6 @@ import {State} from '../store/types';
 import {Genre, ApiRoute, AuthorizationStatus, FilmStatus, NameSpace} from '../const.ts';
 import {checkAuthAction, fetchFilmDataAction, fetchFilmsAction, fetchMyListAction, fetchPromoFilmAction, loginAction, logoutAction, sendCommentAction, setFilmStatusAction} from './api-actions.ts';
 import * as tokenStorage from '../services/token.ts';
-import {redirectToRoute} from './action.ts';
 
 describe('Async actions', () => {
   const axios = createAPI();
@@ -50,7 +49,6 @@ describe('Async actions', () => {
 
       expect(actions).toEqual([
         loginAction.pending.type,
-        redirectToRoute.type,
         loginAction.fulfilled.type,
       ]);
     });

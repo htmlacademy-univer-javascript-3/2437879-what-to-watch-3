@@ -61,7 +61,7 @@ describe('FilmsSlice selectors', () => {
     expect(result).toEqual(myList);
   });
 
-  it('should return genre from state', () => {
+  it('should return genre-list from state', () => {
     const {genres} = state[NameSpace.Films];
     const result = getGenres(state);
 

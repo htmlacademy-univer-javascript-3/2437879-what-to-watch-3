@@ -1,5 +1,5 @@
 import {FilmCards} from '../../components/film-cards/film-cards';
-import GenreList from '../../components/genre/genre-list';
+import GenreList from '../../components/genre-list/genre-list';
 import {useAppSelector} from '../../components/hooks/hooks';
 import ShowMoreButton from '../../components/show-more-button/show-more-button';
 import Spinner from '../../components/spinner/spinner';

@@ -20,7 +20,7 @@ describe('Component: GenreItem', () => {
     expect(screen.getByText(mockGenre)).toBeInTheDocument();
   });
 
-  it('should set active genre on click', async () => {
+  it('should set active genre-list on click', async () => {
     const mockGenre = Genre.New;
     const mockOnClick = vi.fn();
     const { withStoreComponent } = withStore(
